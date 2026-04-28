@@ -42,7 +42,7 @@ function formatBalance(balance: bigint | undefined): string {
 export type NavbarVariant = "full" | "embed";
 
 type NavbarProps = {
-  /** `embed`: compact bar for partner iframes (?embed=1) — keeps Sign In + cash */
+  /** `embed`: partner iframe (?embed=1) — Portfolio + Cash + wallet; no site title / nav links */
   variant?: NavbarVariant;
 };
 
@@ -119,31 +119,25 @@ const Navbar = ({ variant = "full" }: NavbarProps) => {
 
   const rightControls = (
     <div className="flex items-center gap-1">
-      {!isEmbed && (
-        <button
-          className="hidden md:flex flex-col items-center justify-center bg-card px-2 py-1 rounded transition-colors duration-200 cursor-pointer focus:outline-none hover:bg-gray-100 dark:hover:bg-white/10"
-          style={{ boxShadow: "none", minWidth: 0 }}
-          onClick={() => router.push("/portfolio")}
-          type="button"
-        >
-          <span className="text-citizen-ink font-medium text-xs">Portfolio</span>
-          <span className="text-green-600 font-semibold text-xs">
-            {portfolioLoading || portfolioValue === "--" ? (
-              <>$--</>
-            ) : (
-              <>${Number(portfolioValue).toLocaleString(undefined, { maximumFractionDigits: 2 })}</>
-            )}
-          </span>
-        </button>
-      )}
       <button
-        className={
-          isEmbed
-            ? "flex flex-col items-center justify-center bg-card px-2 py-1 pr-2 md:pr-4 rounded transition-colors duration-200 cursor-pointer focus:outline-none hover:bg-gray-100 dark:hover:bg-white/10 text-center"
-            : "hidden md:flex flex-col items-center justify-center bg-card px-2 py-1 pr-4 m-0 p-0 rounded transition-colors duration-200 cursor-pointer focus:outline-none hover:bg-gray-100 dark:hover:bg-white/10 text-center"
-        }
+        className="hidden md:flex flex-col items-center justify-center bg-card px-2 py-1 rounded transition-colors duration-200 cursor-pointer focus:outline-none hover:bg-gray-100 dark:hover:bg-white/10"
+        style={{ boxShadow: "none", minWidth: 0 }}
+        onClick={() => router.push("/portfolio")}
+        type="button"
+      >
+        <span className="text-citizen-ink font-medium text-xs">Portfolio</span>
+        <span className="text-green-600 font-semibold text-xs">
+          {portfolioLoading || portfolioValue === "--" ? (
+            <>$--</>
+          ) : (
+            <>${Number(portfolioValue).toLocaleString(undefined, { maximumFractionDigits: 2 })}</>
+          )}
+        </span>
+      </button>
+      <button
+        className="hidden md:flex flex-col items-center justify-center bg-card px-2 py-1 pr-4 m-0 p-0 rounded transition-colors duration-200 cursor-pointer focus:outline-none hover:bg-gray-100 dark:hover:bg-white/10 text-center"
         style={{ boxShadow: "none", minWidth: 0, margin: 0 }}
-        onClick={() => router.push(isEmbed ? "/deposit" : "/portfolio")}
+        onClick={() => router.push("/portfolio")}
         type="button"
       >
         <span className="text-citizen-ink font-medium text-xs">Cash</span>
@@ -151,7 +145,7 @@ const Navbar = ({ variant = "full" }: NavbarProps) => {
           {!account?.address || isPending ? <>$--</> : <>${formatBalance(balance)}</>}
         </span>
       </button>
-      <div className={`flex ${isEmbed ? "scale-90 origin-right" : "scale-75 origin-left"}`}>
+      <div className="flex scale-75 origin-left">
         <ConnectButton
           client={client}
           wallets={wallets}
@@ -168,16 +162,46 @@ const Navbar = ({ variant = "full" }: NavbarProps) => {
   if (isEmbed) {
     return (
       <nav className="w-full border-b border-border bg-background shrink-0">
-        <div className="max-w-6xl mx-auto w-full flex items-center justify-between px-4 md:px-6 lg:px-8 py-2 gap-3">
-          <a
-            href="https://www.thecitizen.io"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-sm font-bold text-citizen-ink shrink-0 hover:underline"
-          >
-            The Citizen
-          </a>
-          {rightControls}
+        <div className="max-w-6xl mx-auto w-full flex items-center justify-end px-4 md:px-6 lg:px-8 py-2 gap-2">
+          <div className="flex items-center gap-1 flex-wrap justify-end">
+            <button
+              className="flex flex-col items-center justify-center bg-card px-2 py-1 rounded transition-colors duration-200 cursor-pointer focus:outline-none hover:bg-gray-100 dark:hover:bg-white/10"
+              style={{ boxShadow: "none", minWidth: 0 }}
+              onClick={() => router.push("/portfolio")}
+              type="button"
+            >
+              <span className="text-citizen-ink font-medium text-xs">Portfolio</span>
+              <span className="text-green-600 font-semibold text-xs">
+                {portfolioLoading || portfolioValue === "--" ? (
+                  <>$--</>
+                ) : (
+                  <>${Number(portfolioValue).toLocaleString(undefined, { maximumFractionDigits: 2 })}</>
+                )}
+              </span>
+            </button>
+            <button
+              className="flex flex-col items-center justify-center bg-card px-2 py-1 pr-2 md:pr-4 rounded transition-colors duration-200 cursor-pointer focus:outline-none hover:bg-gray-100 dark:hover:bg-white/10 text-center"
+              style={{ boxShadow: "none", minWidth: 0, margin: 0 }}
+              onClick={() => router.push("/deposit")}
+              type="button"
+            >
+              <span className="text-citizen-ink font-medium text-xs">Cash</span>
+              <span className="text-green-600 font-semibold text-xs">
+                {!account?.address || isPending ? <>$--</> : <>${formatBalance(balance)}</>}
+              </span>
+            </button>
+            <div className="flex scale-90 origin-right">
+              <ConnectButton
+                client={client}
+                wallets={wallets}
+                connectButton={{
+                  label: "Sign In",
+                  className:
+                    "bg-black text-white px-4 py-2 rounded transition-colors duration-200 focus:outline-none hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-gray-200 text-[10px] font-semibold m-0",
+                }}
+              />
+            </div>
+          </div>
         </div>
       </nav>
     );
