@@ -247,14 +247,14 @@ export function getContractsForMarket(marketId: string) {
         outcome1PositionId: "80733807866494044064989264593748570883346602976352867452962636788272969620484", // Yes
         outcome2PositionId: "82014206595205999966836145615591894490967798855888777269788802495716431801547", // No
       };
-    case 'apollo-11-moon-landing-fake':
+    case 'covid-lab-leak':
       return {
         marketContract: apollo11MoonLandingFakeMarketContract,
         conditionalTokensContract: apollo11MoonLandingFakeConditionalTokensContract,
         outcome1PositionId: "19240072908051422858567531872907377759204560755767841038267344394720196826061", // Yes
         outcome2PositionId: "94149467698680814353316726576100038444402729322933448584166012738934466766066", // No
       };
-    case 'fluoride':
+    case 'cern-black-hole':
       return {
         marketContract: citizenMarketContract,
         conditionalTokensContract: citizenConditionalTokensContract,
