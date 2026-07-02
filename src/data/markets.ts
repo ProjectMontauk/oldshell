@@ -20,7 +20,7 @@ export const markets: Market[] = [
   },
   {
     id: 'covid-lab-leak',
-    title: "COVID-19 Lab Leak Market",
+    title: "Was COVID-19 a Lab Leak?",
     description: "Did SARS-CoV-2 (COVID-19) enter the human population through a laboratory leak from a research or related facility, rather than purely through natural zoonotic spillover?",
     image: "/CovidVaccine.png",
     contractAddress: "0x5Af20651c5a8fAd0d1E38122183fEB8bC0838716",
