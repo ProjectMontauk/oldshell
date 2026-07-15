@@ -9,11 +9,11 @@ import { useSearchParams } from 'next/navigation';
 function DocsContent() {
   const searchParams = useSearchParams();
   const tabParam = searchParams?.get('tab');
-  const validTabs = ['trial-resolution', 'relegation-system', 'economics', 'idea-futures', 'review-boards'] as const;
+  const validTabs = ['superforecaster-methodology', 'relegation-system', 'economics', 'idea-futures', 'review-boards'] as const;
   type DocsTab = typeof validTabs[number];
   const isValidTab = (tab: string | null | undefined): tab is DocsTab =>
     !!tab && validTabs.includes(tab as DocsTab);
-  const initialTab = isValidTab(tabParam) ? tabParam : 'trial-resolution';
+  const initialTab = isValidTab(tabParam) ? tabParam : 'superforecaster-methodology';
   const [activeTab, setActiveTab] = useState<DocsTab>(initialTab);
   
   useEffect(() => {
@@ -29,14 +29,14 @@ function DocsContent() {
         <div className="max-w-3xl mx-auto px-4 py-8">
           <div className="flex gap-4 mb-6 border-b border-gray-200">
             <button
-              onClick={() => setActiveTab('trial-resolution')}
+              onClick={() => setActiveTab('superforecaster-methodology')}
               className={`pb-2 px-1 font-sans text-lg font-semibold transition-colors ${
-                activeTab === 'trial-resolution'
+                activeTab === 'superforecaster-methodology'
                   ? 'text-black border-b-2 border-black'
                   : 'text-gray-500 hover:text-gray-700'
               }`}
             >
-              Trial & Resolution Procedure
+              Superforecaster methodology
             </button>
             <button
               onClick={() => setActiveTab('relegation-system')}
@@ -80,149 +80,50 @@ function DocsContent() {
             </button>
           </div>
 
-          {activeTab === 'trial-resolution' && (
+          {activeTab === 'superforecaster-methodology' && (
             <div>
-              <h2 className="text-2xl font-bold text-black font-sans mb-3 mt-10">Introduction</h2>
+              <h2 className="text-2xl font-bold text-black font-sans mb-3 mt-10">Who Are Superforecasters?</h2>
               <p className="text-gray-800 leading-7 mb-4">
-                The concept of science courts originated with Professor Arthur Kantrowitz, who proposed it in the 1960s and persuaded the Ford administration to explore establishing them. However, Ford&apos;s loss in the 1976 election prevented further research at the federal level. The trial procedure proposed below draws from Kantrowitz and the work of Professor Ellad Tadmor, who ran a Science Court seminar at the University of Minnesota from 2019 to 2022 for undergraduate students.
+                &quot;Superforecaster&quot; is a term coined by psychologist Philip Tetlock and Barbara Mellers based on results from the Good Judgment Project (GJP), the winning entry in IARPA&apos;s Aggregative Contingent Estimation (ACE) tournament (2011–2015). Unlike pundits or credentialed experts, superforecasters are qualified by track record, not title: every judgment they make is scored against a real-world, resolvable event, so their calibration is empirically verified rather than assumed.
               </p>
+
+              <h2 className="text-2xl font-bold text-black font-sans mb-3 mt-10">Why They&apos;re Qualified</h2>
               <p className="text-gray-800 leading-7 mb-4">
-                Kantrowitz&apos;s courts dealt with questions of scientific fact like whether the Love Canal environmental disaster increased birth defects and genetic hazards among residents. After an adversarial process of cross examination, technical judges submitted opinions on the merits of each side&apos;s argument but the court avoided total resolution of the underlying question. Kantrowitz viewed the exercise as encouraging, noting that it added clarity on a complex issue.
+                Forecast accuracy is measured with the Brier score, which captures the gap between a forecaster&apos;s stated probability and the actual outcome (0 = perfect, 2 = worst possible). Across GJP tournament seasons, superforecasters posted an average Brier score of roughly 0.166, compared to about 0.259 for the broader forecaster pool — and in several seasons they outperformed intelligence community analysts who had access to classified information. That track record, compiled over hundreds of real-world geopolitical and economic questions, is what qualifies them to price uncertainty on contested claims: their edge is demonstrated calibration, not subject-matter credentials alone.
               </p>
+
+              <h2 className="text-2xl font-bold text-black font-sans mb-3 mt-10">How They&apos;re Vetted</h2>
               <p className="text-gray-800 leading-7 mb-4">
-                Tadmor&apos;s courts dealt with policy questions like &quot;should the US increase investment in nuclear energy&quot; and at the end of the deliberation process, jurors voted on what action they would recommend based on an agreed upon fact sheet produced by the trial procedure. Tadmor&apos;s court used unpaid volunteers since the course was run as a class at the University of Minnesota while Kantrowitz&apos;s court used jurors with technical expertise.
-              </p>
-              <p className="text-gray-800 leading-7 mb-4">
-                The trial procedure for the science courts run by Tadmor and Kantrowitz are nearly identical, so The Citizen will implement the same trial and procedure process from these previous attempts. The first point of differentiation between previous science courts is that The Citizen will venture to resolve the market by making a judgement about the underlying claim based on the factsheet produced by the trial. The second point of differentiation is that The Citizen&apos;s crowd-sourced evidence section will aid the case managers in their research. Case managers are responsible for representing a market position and responding to any challenges from opposing counsel regarding disputed facts. The case manager&apos;s research is not limited to the evidence section but the evidence section should be useful in finding good evidence in support of the respective positions. If the evidence section is effective at finding and ranking the best arguments, The Citizen will explore removing case managers entirely and proceed with having technical jurors review the claims made in the evidence section.
-              </p>
-              
-              <h2 className="text-2xl font-bold text-black font-sans mb-3 mt-10">Market Rules</h2>
-              <p className="text-gray-800 leading-7 mb-4">
-                Before proceeding to the trial procedure, the market question scope and the burden of proof need to be clearly defined.
-              </p>
-              
-              <h3 className="text-xl font-bold text-black font-sans mb-3 mt-6">Question Scope</h3>
-              <p className="text-gray-800 leading-7 mb-4">
-                The question scope defines the core claim that the prediction market seeks to answer. For a JFK-themed market, possible formulations range from broad to narrow. Consider these examples:
-              </p>
-              <p className="text-gray-800 leading-7 mb-4">
-                <strong>General:</strong> Was the CIA involved in the assassination of JFK?
-              </p>
-              <p className="text-gray-800 leading-7 mb-4">
-                <strong>Specific:</strong> Did multiple assassins shoot at JFK on November 22, 1963?
-              </p>
-              <p className="text-gray-800 leading-7 mb-4">
-                The specific version targets a single factual claim (multiple shooters), while the general version encompasses a wider range of potential forms of involvement. Involved is explicitly defined as any of the following:
+                Good Judgment&apos;s vetting process, which the SBI panel draws on, works as follows:
               </p>
               <ul className="list-disc pl-6 space-y-2 text-gray-800 leading-7 mb-4">
-                <li>Direct participation in planning or executing the assassination</li>
-                <li>Foreknowledge coupled with failure to prevent it</li>
-                <li>Facilitation through assets or proxies</li>
-                <li>Participation in a post-assassination cover-up</li>
+                <li><strong>Minimum sample size:</strong> a forecaster must answer at least 50 questions within a tournament season before being eligible, so a lucky streak can&apos;t be mistaken for skill.</li>
+                <li><strong>Accuracy threshold:</strong> superforecaster status is awarded to roughly the top 2% of forecasters by average accuracy score within that season.</li>
+                <li><strong>Qualitative review:</strong> Good Judgment also evaluates comment quality (the reasoning behind a forecast, not just the number) and collegiality, since superforecasters work in small teams and their rationales are delivered to clients alongside the probability itself.</li>
+                <li><strong>Re-qualification:</strong> status is not permanent. Track record is re-evaluated each season, so underperformance can result in a forecaster losing superforecaster status — the same relegation logic the SBI panel applies internally.</li>
               </ul>
+
+              <h2 className="text-2xl font-bold text-black font-sans mb-3 mt-10">How Many Superforecasters Are Used</h2>
               <p className="text-gray-800 leading-7 mb-4">
-                Tadmor recommends the general question because it generates a broader, more comprehensive fact sheet. However, broader questions complicate trial proceedings because the more sub-claims a question invites, the more elements the jury must evaluate.
+                Good Judgment Inc. currently maintains an active pool of roughly 180 professional superforecasters, drawn from a base of over 100,000 forecasters who have participated in the original GJP tournament and its successor, Good Judgment Open.
               </p>
               <p className="text-gray-800 leading-7 mb-4">
-                Despite this trade-off, the general formulation is adopted here to maximize informational value. The market will use the following as the market quesiton:
-              </p>
-              <p className="text-gray-800 leading-7 mb-4">
-                Was the CIA involved in the assassination of JFK?
-              </p>
-              <p className="text-gray-800 leading-7 mb-4">
-                Involved is defined as: direct participation in planning or executing the act; foreknowledge and failure to prevent it; facilitation through assets or proxies; or participation in a post-assassination cover-up.
+                [Note: insert the specific number of superforecasters the SBI panel itself draws on or contracts with — I don&apos;t have that figure for The Citizen&apos;s panel.]
               </p>
 
-              <h3 className="text-xl font-bold text-black font-sans mb-3 mt-6">Burden of Proof</h3>
+              <h2 className="text-2xl font-bold text-black font-sans mb-3 mt-10">Good Judgment&apos;s Aggregation Methodology</h2>
               <p className="text-gray-800 leading-7 mb-4">
-                Next, the market needs to define the burden of proof by which the jury (&quot;board&quot;) will evaluate the claim. Below are some options for the burden of proof:
-              </p>
-              <ol className="list-decimal pl-6 space-y-2 text-gray-800 leading-7 mb-4">
-                <li><strong>More likely than not (&gt;51% confidence):</strong> The market resolves &quot;Yes&quot; if the board finds it more likely than not that the CIA was involved in JFK&apos;s assassination. Otherwise, the market will resolve &quot;No.&quot;</li>
-                <li><strong>Preponderance of the evidence (&gt;51% confidence):</strong> The market resolves &quot;Yes&quot; if the board finds a preponderance of the evidence that the CIA was involved. Otherwise, the market will resolve &quot;No.&quot;</li>
-                <li><strong>Clear and convincing evidence (&gt;75% confidence, approximate):</strong> The market resolves &quot;Yes&quot; if the board finds clear and convincing evidence that the CIA was involved. Otherwise, the market will resolve &quot;No.&quot;</li>
-                <li><strong>Beyond a reasonable doubt (&gt;95% confidence, approximate):</strong> The market resolves &quot;Yes&quot; if the board finds the CIA&apos;s involvement proven beyond a reasonable doubt. Otherwise, the market will resolve &quot;No.&quot;</li>
-              </ol>
-              <p className="text-gray-800 leading-7 mb-4">
-                Previous science courts did not seek final resolution so they did not define specific market rules. Tadmor&apos;s science court did define a &quot;pro-ish&quot; and &quot;con-ish&quot; side of their policy debate but this framework cannot be applied to a question of historical fact. 
-              </p>
-              <p className="text-gray-800 leading-7 mb-4">
-                Clear and convincing evidence is the recommended burden of proof because it uses clear language and it provides a reasonable threshold for proof. Beyond a reasonable doubt is too difficult to prove considering that The Citizen does not have the authority to subpoena any involved party. More likely than not might cause the trial proceedings to be too circumstantial leading to a flimsy resolution that could be easily overturned at a later date. The market rules will proceed with the following phrasing:
-              </p>
-              <p className="text-gray-800 leading-7 mb-4">
-                The market will resolve &quot;Yes&quot; if the board finds that there is clear and convincing evidence that the CIA was involved in the assassination of JFK. Otherwise, the market will resolve &quot;No.&quot;
-              </p>
-              <p className="text-gray-800 leading-7 mb-4">
-                Involved means direct participation in planning or executing the act, foreknowledge and failure to prevent it, facilitation through assets or proxies, or post-assassination cover-up.
-              </p>
-
-              <h2 className="text-2xl font-bold text-black font-sans mb-3 mt-10">Personnel Selection &amp; Pay</h2>
-              <p className="text-gray-800 leading-7 mb-4">
-                The markets will be resolved by a panel of three neutral jurors known as the &quot;board&quot; who have domain expertise. The Citizen will draft three jurors who meet the following criteria:
+                GJP does not average individual forecasts naively. Its aggregation algorithm — sometimes called &quot;elitist&quot; aggregation — combines two steps:
               </p>
               <ul className="list-disc pl-6 space-y-2 text-gray-800 leading-7 mb-4">
-                <li>Born in the United States</li>
-                <li>PhD or PhD candidate in a relevant field</li>
-                <li>Self-proclaimed neutral and undecided on the particular question at hand</li>
+                <li><strong>Weighting:</strong> each forecaster&apos;s input is weighted by their historical accuracy (better track record = more weight) and by recency (forecasts updated more recently count more than stale ones).</li>
+                <li><strong>Extremizing:</strong> the weighted average is then pushed further toward 0 or 1 than a simple average would suggest. This corrects for a known bias in group aggregation: because forecasters&apos; private information overlaps only partially, a plain average tends to be more moderate (closer to 50%) than the group&apos;s true collective knowledge justifies. The degree of extremizing scales with the size and diversity of the forecaster pool — a larger, more independent pool of information justifies pushing the aggregate further toward certainty.</li>
               </ul>
               <p className="text-gray-800 leading-7 mb-4">
-                The board will be compensated at a level commensurate with one week&apos;s wages for a typical postdoctoral program. Each juror will be paid $1,300 in exchange for one week of their time, bringing the total cost of fielding the jury to $3,900. Compensation may be adjusted based on current wage market conditions, field of expertise, or seniority.
+                This weighted-and-extremized approach outperformed simple averaging, unweighted medians, and in several tournament years, prediction markets, within IARPA&apos;s ACE tournament. (It&apos;s worth noting the value of extremizing specifically has drawn some later academic debate, with a few replications questioning how much of GJP&apos;s edge came from extremizing versus weighting alone.)
               </p>
               <p className="text-gray-800 leading-7 mb-4">
-                Case managers are responsible for representing their respective side of the market and are ideally pundits who already publicly debate the market position. If possible, The Citizen will not pay case managers since the trial procedures serve as a platform to increase their personal profile. In the Love Canal case, case managers were unpaid local scientists who had already debated the issue in community and academic settings.
-              </p>
-
-              <h2 className="text-2xl font-bold text-black font-sans mb-3 mt-10">Procedure Timing</h2>
-              <p className="text-gray-800 leading-7 mb-4">
-                The market timing and resolution will follow :
-              </p>
-              <ol className="list-decimal pl-6 space-y-2 text-gray-800 leading-7 mb-4">
-                <li><strong>Trading &amp; Discovery (Three Months)</strong> - The market and evidence section will be open for a period of three months to enable traders to take positions and post relevant evidence to the evidence section. At the end of the discovery period, case managers will submit their list of factual claims ordered by importance to their case.</li>
-                <li><strong>Deliberation &amp; Resolution (One Week)</strong> - Immediately after market close, the deliberation process will begin as described below in the trial procedure section. At the end of this period, the jurors will produce a fact sheet that they will use to resolve the market.</li>
-              </ol>
-              <p className="text-gray-800 leading-7 mb-4">
-                The procedure timing aligns with Tadmor&apos;s court which designated two months for research prior to a one week trial period that consisted of a one-day pre-trial session, a one-day mediation session, and a three-hour jury session. 
-              </p>
-
-              <h2 className="text-2xl font-bold text-black font-sans mb-3 mt-10">Trial Procedure</h2>
-              <p className="text-gray-800 leading-7 mb-4">
-                After the three-month trading and discovery period closes and both case managers submit their prioritized lists of factual claims, the one-week deliberation and resolution phase begins. During this phase, the board follows the mediation-then-adversary procedure originally proposed by Kantrowitz. Tadmor&apos;s implementation followed a similar structure, though typically in an oral, classroom format.
-              </p>
-              <p className="text-gray-800 leading-7 mb-4">
-                The process proceeds as follows:
-              </p>
-              <ol className="list-decimal pl-6 space-y-2 text-gray-800 leading-7 mb-4">
-                <li>Each case manager reviews the prioritized list of factual statements submitted by the opposing case manager.</li>
-                <li>Each case manager indicates whether they accept or challenge each of the opponent&apos;s statements.</li>
-                <li>Statements accepted by both sides become the first component of the court&apos;s output (agreed-upon facts).</li>
-                <li>Challenged statements enter a mediation phase: The case managers attempt to narrow disagreements or negotiate revised wording that both can accept.</li>
-                <li>Any successfully mediated statements are added to the court&apos;s output. Remaining challenged statements proceed to an adversary procedure.</li>
-                <li>For each remaining challenged statement (starting with the highest-priority one), case managers prepare and submit substantiation papers to the board and the opposing case manager.</li>
-                <li>The substantiation is subject to cross-examination: Opposing case managers and board members may question claims, present contrary evidence from the posted materials, and cross-examine responses.</li>
-                <li>A second mediation attempt is made to reach agreement on a revised statement. If successful, the agreed statement is added to the output.</li>
-                <li>If mediation fails, the board deliberates and issues a written opinion on the contested statement, stating their findings and confidence level.</li>
-                <li>This cycle of mediation, cross-examinination, and opinion if needed repeats for each remaining challenged statement, in order of priority.</li>
-              </ol>
-              <p className="text-gray-800 leading-7 mb-4">
-                The final output consists of:
-              </p>
-              <ul className="list-disc pl-6 space-y-2 text-gray-800 leading-7 mb-4">
-                <li>All statements accepted or mediated by both sides</li>
-                <li>The board&apos;s written opinions on any unresolved contested statements.</li>
-              </ul>
-              <p className="text-gray-800 leading-7 mb-4">
-                This fact sheet constitutes the basis for the board&apos;s final judgment, resolving the market to Yes or No under the established burden of proof.
-              </p>
-
-              <h2 className="text-2xl font-bold text-black font-sans mb-3 mt-10">Trial Resolution</h2>
-              <p className="text-gray-800 leading-7 mb-4">
-                Using only the fact sheet produced by the board, each member independently issues a written opinion stating whether, in their view, the evidence meets the defined burden of proof - clear and convincing evidence that the CIA was involved in the assassination of JFK.
-              </p>
-              <p className="text-gray-800 leading-7 mb-4">
-                For the market to resolve Yes, at least two of the three board members must conclude that the burden has been satisfied. If fewer than two agree, the market resolves No.
-              </p>
-              <p className="text-gray-800 leading-7 mb-4">
-                Once the judgment is complete, the full fact sheet is published publicly. The market is then officially resolved based on the board&apos;s determination.
+                The SBI&apos;s own methodology is modeled on this approach: individual superforecaster estimates are weighted by track record and recency, then extremized, to produce the published index value.
               </p>
             </div>
           )}
