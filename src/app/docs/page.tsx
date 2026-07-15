@@ -407,7 +407,7 @@ function DocsContent() {
 
           {activeTab === 'quarterly-trial-procedure' && (
             <div>
-              <h2 className="text-2xl font-bold text-black font-sans mb-3 mt-10">Origins: The Science Court Proposal</h2>
+              <h2 className="text-2xl font-bold text-black font-sans mb-3 mt-10">The Science Court Proposal</h2>
               <p className="text-gray-800 leading-7 mb-4">
                 Physicist Arthur Kantrowitz first proposed a &quot;Science Court&quot; in 1967. His model separated questions of scientific fact from questions of policy or value. Two case managers, one for each side of a contested issue, would submit statements of fact. A panel of judges, senior scientists with no stake in the outcome, would test each statement through adversarial questioning until it was either accepted or set aside as unresolved. A federal task force reviewed the proposal in 1976, and the idea has since been revived in practice.
               </p>
