@@ -9,13 +9,15 @@ import { useSearchParams } from 'next/navigation';
 function DocsContent() {
   const searchParams = useSearchParams();
   const tabParam = searchParams?.get('tab');
-  const initialTab = (tabParam === 'trial-resolution' || tabParam === 'review-boards' || tabParam === 'idea-futures' || tabParam === 'economics') 
-    ? tabParam 
-    : 'trial-resolution';
-  const [activeTab, setActiveTab] = useState<'trial-resolution' | 'economics' | 'idea-futures' | 'review-boards'>(initialTab);
+  const validTabs = ['trial-resolution', 'relegation-system', 'economics', 'idea-futures', 'review-boards'] as const;
+  type DocsTab = typeof validTabs[number];
+  const isValidTab = (tab: string | null | undefined): tab is DocsTab =>
+    !!tab && validTabs.includes(tab as DocsTab);
+  const initialTab = isValidTab(tabParam) ? tabParam : 'trial-resolution';
+  const [activeTab, setActiveTab] = useState<DocsTab>(initialTab);
   
   useEffect(() => {
-    if (tabParam && (tabParam === 'trial-resolution' || tabParam === 'review-boards' || tabParam === 'idea-futures' || tabParam === 'economics')) {
+    if (isValidTab(tabParam)) {
       setActiveTab(tabParam);
     }
   }, [tabParam]);
@@ -35,6 +37,16 @@ function DocsContent() {
               }`}
             >
               Trial & Resolution Procedure
+            </button>
+            <button
+              onClick={() => setActiveTab('relegation-system')}
+              className={`pb-2 px-1 font-sans text-lg font-semibold transition-colors ${
+                activeTab === 'relegation-system'
+                  ? 'text-black border-b-2 border-black'
+                  : 'text-gray-500 hover:text-gray-700'
+              }`}
+            >
+              Idea Futures Relegation
             </button>
             <button
               onClick={() => setActiveTab('economics')}
@@ -211,6 +223,90 @@ function DocsContent() {
               </p>
               <p className="text-gray-800 leading-7 mb-4">
                 Once the judgment is complete, the full fact sheet is published publicly. The market is then officially resolved based on the board&apos;s determination.
+              </p>
+            </div>
+          )}
+
+          {activeTab === 'relegation-system' && (
+            <div>
+              <h2 className="text-2xl font-bold text-black font-sans mb-3 mt-10">How It Works</h2>
+              <p className="text-gray-800 leading-7 mb-4">
+                Superforecasters on the price oracle are ranked annually by unlevered profit and loss (P&amp;L) across every market they trade. At year-end, the bottom quartile by P&amp;L is removed from the price oracle and replaced by qualified challenger forecasters carrying the strongest P&amp;L track records. It functions like a promotion/relegation system: a seat on the price oracle is earned and re-earned every year, so the panel continuously selects for the traders who price uncertainty most accurately and update fastest on new evidence. Over time, this continuous selection process means the price oracle comes to represent the market consensus of the best people in the world at anticipating which facts or stories are true or false.
+              </p>
+
+              <h2 className="text-2xl font-bold text-black font-sans mb-3 mt-10">Worked Example: &quot;Did Mark Kill Peter?&quot;</h2>
+              <p className="text-gray-800 leading-7 mb-4">
+                Consider a contested-claims market: Did Mark kill Peter? The YES contract opens trading at 5¢ (a 5% implied probability), reflecting thin initial evidence.
+              </p>
+              <p className="text-gray-800 leading-7 mb-4">
+                Investigators later disclose that a rag stained with Peter&apos;s blood was found in the trunk of Mark&apos;s car. The market reacts immediately, and YES rises from 5¢ to 90¢ as calibrated forecasters update toward Mark&apos;s guilt.
+              </p>
+
+              <h3 className="text-xl font-bold text-black font-sans mb-3 mt-6">Three Traders</h3>
+              <p className="text-gray-800 leading-7 mb-4">
+                Three Superforecasters each trade the market with $1,000 in unlevered capital:
+              </p>
+              <ul className="list-disc pl-6 space-y-2 text-gray-800 leading-7 mb-4">
+                <li><strong>Trader A (&quot;The Skeptic&quot;)</strong> — buys NO early at 95¢/share.</li>
+                <li><strong>Trader B (&quot;The Sharp&quot;)</strong> — buys YES early at 5¢/share, before the evidence breaks.</li>
+                <li><strong>Trader C (&quot;The Second Mover&quot;)</strong> — buys YES mid-move at 50¢/share, after rumors surface but before the rag is confirmed.</li>
+              </ul>
+              <p className="text-gray-800 leading-7 mb-4">
+                When the market settles near 90¢ YES (10¢ NO), the results diverge sharply:
+              </p>
+
+              <div className="overflow-x-auto mb-6">
+                <table className="w-full text-sm text-gray-800 border border-gray-200">
+                  <thead>
+                    <tr className="bg-gray-50 border-b border-gray-200">
+                      <th className="text-left font-semibold px-3 py-2">Trader</th>
+                      <th className="text-left font-semibold px-3 py-2">Position</th>
+                      <th className="text-left font-semibold px-3 py-2">Entry Price</th>
+                      <th className="text-left font-semibold px-3 py-2">Capital</th>
+                      <th className="text-left font-semibold px-3 py-2">Shares</th>
+                      <th className="text-left font-semibold px-3 py-2">Value after Rag</th>
+                      <th className="text-left font-semibold px-3 py-2">P&amp;L ($)</th>
+                      <th className="text-left font-semibold px-3 py-2">P&amp;L (%)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr className="border-b border-gray-200">
+                      <td className="px-3 py-2">A</td>
+                      <td className="px-3 py-2">NO</td>
+                      <td className="px-3 py-2">$0.95</td>
+                      <td className="px-3 py-2">$1,000</td>
+                      <td className="px-3 py-2">1,053</td>
+                      <td className="px-3 py-2">$105 (at $0.10)</td>
+                      <td className="px-3 py-2">−$895</td>
+                      <td className="px-3 py-2">−89.5%</td>
+                    </tr>
+                    <tr className="border-b border-gray-200">
+                      <td className="px-3 py-2">B</td>
+                      <td className="px-3 py-2">YES</td>
+                      <td className="px-3 py-2">$0.05</td>
+                      <td className="px-3 py-2">$1,000</td>
+                      <td className="px-3 py-2">20,000</td>
+                      <td className="px-3 py-2">$18,000 (at $0.90)</td>
+                      <td className="px-3 py-2">+$17,000</td>
+                      <td className="px-3 py-2">+1,700%</td>
+                    </tr>
+                    <tr>
+                      <td className="px-3 py-2">C</td>
+                      <td className="px-3 py-2">YES</td>
+                      <td className="px-3 py-2">$0.50</td>
+                      <td className="px-3 py-2">$1,000</td>
+                      <td className="px-3 py-2">2,000</td>
+                      <td className="px-3 py-2">$1,800 (at $0.90)</td>
+                      <td className="px-3 py-2">+$800</td>
+                      <td className="px-3 py-2">+80%</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <h2 className="text-2xl font-bold text-black font-sans mb-3 mt-10">Relegation</h2>
+              <p className="text-gray-800 leading-7 mb-4">
+                At year-end, the three traders are ranked by P&amp;L. Trader A backed the wrong side of a real-world outcome and posted the panel&apos;s worst P&amp;L. Trader A falls into the bottom quartile and is relegated, removed from the price oracle and replaced by a new forecaster with a proven record of positive unlevered P&amp;L. Traders B and C, having correctly priced and moved with the evidence, keep their seats and re-enter the following year&apos;s price oracle. Over time, this continuous selection process means The Citizen&apos;s price oracle will select for market participants who are best able to price uncertainty and discover truth as quickly as possible.
               </p>
             </div>
           )}
