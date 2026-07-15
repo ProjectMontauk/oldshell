@@ -36,7 +36,7 @@ function DocsContent() {
                   : 'text-gray-500 hover:text-gray-700'
               }`}
             >
-              Superforecaster methodology
+              Superforecaster
             </button>
             <button
               onClick={() => setActiveTab('relegation-system')}
