@@ -56,7 +56,7 @@ function DocsContent() {
                   : 'text-gray-500 hover:text-gray-700'
               }`}
             >
-              Market Docs
+              Markets
             </button>
             <button
               onClick={() => setActiveTab('economics')}
@@ -241,7 +241,7 @@ function DocsContent() {
           {activeTab === 'how-derps-work' && (
             <div>
               <p className="text-gray-800 leading-7 mb-4 mt-10">
-                The Citizen&apos;s prediction markets are powered by{' '}
+                The Citizen&apos;s futures markets are powered by{' '}
                 <a href="https://derp.trade" target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">
                   derp.trade
                 </a>
