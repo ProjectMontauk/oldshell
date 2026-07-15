@@ -9,7 +9,7 @@ import { useSearchParams } from 'next/navigation';
 function DocsContent() {
   const searchParams = useSearchParams();
   const tabParam = searchParams?.get('tab');
-  const validTabs = ['superforecaster-methodology', 'relegation-system', 'how-derps-work', 'economics', 'idea-futures', 'review-boards'] as const;
+  const validTabs = ['superforecaster-methodology', 'relegation-system', 'how-derps-work', 'quarterly-trial-procedure', 'economics', 'idea-futures', 'review-boards'] as const;
   type DocsTab = typeof validTabs[number];
   const isValidTab = (tab: string | null | undefined): tab is DocsTab =>
     !!tab && validTabs.includes(tab as DocsTab);
@@ -30,7 +30,7 @@ function DocsContent() {
           <div className="flex gap-4 mb-6 border-b border-gray-200">
             <button
               onClick={() => setActiveTab('superforecaster-methodology')}
-              className={`pb-2 px-1 font-sans text-lg font-semibold transition-colors ${
+              className={`pb-2 px-1 font-sans text-[0.956rem] font-semibold transition-colors ${
                 activeTab === 'superforecaster-methodology'
                   ? 'text-black border-b-2 border-black'
                   : 'text-gray-500 hover:text-gray-700'
@@ -40,7 +40,7 @@ function DocsContent() {
             </button>
             <button
               onClick={() => setActiveTab('relegation-system')}
-              className={`pb-2 px-1 font-sans text-lg font-semibold transition-colors ${
+              className={`pb-2 px-1 font-sans text-[0.956rem] font-semibold transition-colors ${
                 activeTab === 'relegation-system'
                   ? 'text-black border-b-2 border-black'
                   : 'text-gray-500 hover:text-gray-700'
@@ -50,13 +50,23 @@ function DocsContent() {
             </button>
             <button
               onClick={() => setActiveTab('how-derps-work')}
-              className={`pb-2 px-1 font-sans text-lg font-semibold transition-colors ${
+              className={`pb-2 px-1 font-sans text-[0.956rem] font-semibold transition-colors ${
                 activeTab === 'how-derps-work'
                   ? 'text-black border-b-2 border-black'
                   : 'text-gray-500 hover:text-gray-700'
               }`}
             >
               Markets
+            </button>
+            <button
+              onClick={() => setActiveTab('quarterly-trial-procedure')}
+              className={`pb-2 px-1 font-sans text-[0.956rem] font-semibold transition-colors ${
+                activeTab === 'quarterly-trial-procedure'
+                  ? 'text-black border-b-2 border-black'
+                  : 'text-gray-500 hover:text-gray-700'
+              }`}
+            >
+              Quarterly Trial Procedure
             </button>
             <button
               onClick={() => setActiveTab('economics')}
@@ -392,6 +402,52 @@ function DocsContent() {
                   </a>
                 </li>
               </ul>
+            </div>
+          )}
+
+          {activeTab === 'quarterly-trial-procedure' && (
+            <div>
+              <h2 className="text-2xl font-bold text-black font-sans mb-3 mt-10">Origins: The Science Court Proposal</h2>
+              <p className="text-gray-800 leading-7 mb-4">
+                Physicist Arthur Kantrowitz first proposed a &quot;Science Court&quot; in 1967. His model separated questions of scientific fact from questions of policy or value. Two case managers, one for each side of a contested issue, would submit statements of fact. A panel of judges, senior scientists with no stake in the outcome, would test each statement through adversarial questioning until it was either accepted or set aside as unresolved. A federal task force reviewed the proposal in 1976, and the idea has since been revived in practice.
+              </p>
+              <p className="text-gray-800 leading-7 mb-4">
+                Ellad Tadmor at the University of Minnesota runs a modern version called SciCourt, which carries contested public-policy topics through the same structure: pretrial evidence agreement, adversarial presentation, and neutral judgment aimed at building consensus rather than declaring a winner.
+              </p>
+              <p className="text-gray-800 leading-7 mb-4">
+                We adapt this same structure to give the SBI panel a formal, recurring check on the claims embedded in its markets.
+              </p>
+
+              <h2 className="text-2xl font-bold text-black font-sans mb-3 mt-10">The Quarterly Trial Procedure</h2>
+              <p className="text-gray-800 leading-7 mb-4">
+                Once per quarter, a subset of superforecasters is convened as judges for a given market or cluster of related markets.
+              </p>
+
+              <h3 className="text-xl font-bold text-black font-sans mb-3 mt-6">Roles</h3>
+              <ul className="list-disc pl-6 space-y-2 text-gray-800 leading-7 mb-4">
+                <li><strong>Judges.</strong> Drawn from the superforecaster panel. To remain neutral, judges may not hold an open position in the market under review and may not have a recent trading history on it.</li>
+                <li><strong>Case Managers.</strong> Other superforecasters, assigned as advocates to opposing sides of the contested claim. Each case manager compiles supporting evidence and drafts a prioritized list of the factual statements they want the judges to accept.</li>
+              </ul>
+
+              <h3 className="text-xl font-bold text-black font-sans mb-3 mt-6">Process</h3>
+              <ol className="list-decimal pl-6 space-y-2 text-gray-800 leading-7 mb-4">
+                <li><strong>Evidence submission.</strong> Case managers submit their supporting material to the evidence section, along with a prioritized list of the individual factual statements they wish to establish.</li>
+                <li><strong>Adversarial questioning.</strong> Judges question each statement directly against the opposing case manager, so weak or unsupported claims are exposed and can be met with counter-evidence.</li>
+                <li><strong>Resolution.</strong> Questioning continues until every statement is either accepted as stated, mediated into wording both sides can endorse, or set aside as unresolved. Nothing is silently dropped.</li>
+                <li><strong>Final output.</strong> The judges publish a single document containing every accepted or mediated statement, along with a clear record of anything left unresolved.</li>
+                <li><strong>Cruxes and new questions.</strong> Alongside the accepted statements, judges identify the cruxes: the specific points where the two sides still disagree and where new evidence would most change the market&apos;s probability. These are published back to the broader panel as new sub-questions that market participants can trade on and use to update their forecasts.</li>
+              </ol>
+
+              <h2 className="text-2xl font-bold text-black font-sans mb-3 mt-10">Why This Matters</h2>
+              <p className="text-gray-800 leading-7 mb-4">
+                A single probability number can hide which underlying arguments still hold up under scrutiny. The Quarterly Trial forces that disagreement onto the table on a fixed schedule. It converts vague suspicion into named cruxes, and it gives market participants a fresh, testable set of questions instead of requiring them to sift through raw evidence themselves. Over time, this should sharpen the calibration of the underlying market by directing new evidence-gathering toward exactly the claims most likely to move the price.
+              </p>
+              <p className="text-gray-800 leading-7 mb-4">
+                Learn more about the modern SciCourt revival at{' '}
+                <a href="https://scicourt.umn.edu/introduction-science-court" target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">
+                  scicourt.umn.edu
+                </a>.
+              </p>
             </div>
           )}
 
