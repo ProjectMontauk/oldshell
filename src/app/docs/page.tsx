@@ -9,7 +9,7 @@ import { useSearchParams } from 'next/navigation';
 function DocsContent() {
   const searchParams = useSearchParams();
   const tabParam = searchParams?.get('tab');
-  const validTabs = ['superforecaster-methodology', 'relegation-system', 'economics', 'idea-futures', 'review-boards'] as const;
+  const validTabs = ['superforecaster-methodology', 'relegation-system', 'how-derps-work', 'economics', 'idea-futures', 'review-boards'] as const;
   type DocsTab = typeof validTabs[number];
   const isValidTab = (tab: string | null | undefined): tab is DocsTab =>
     !!tab && validTabs.includes(tab as DocsTab);
@@ -36,7 +36,7 @@ function DocsContent() {
                   : 'text-gray-500 hover:text-gray-700'
               }`}
             >
-              Superforecaster
+              Superforecasters
             </button>
             <button
               onClick={() => setActiveTab('relegation-system')}
@@ -47,6 +47,16 @@ function DocsContent() {
               }`}
             >
               Idea Futures Relegation
+            </button>
+            <button
+              onClick={() => setActiveTab('how-derps-work')}
+              className={`pb-2 px-1 font-sans text-lg font-semibold transition-colors ${
+                activeTab === 'how-derps-work'
+                  ? 'text-black border-b-2 border-black'
+                  : 'text-gray-500 hover:text-gray-700'
+              }`}
+            >
+              Market Docs
             </button>
             <button
               onClick={() => setActiveTab('economics')}
@@ -84,46 +94,62 @@ function DocsContent() {
             <div>
               <h2 className="text-2xl font-bold text-black font-sans mb-3 mt-10">Who Are Superforecasters?</h2>
               <p className="text-gray-800 leading-7 mb-4">
-                &quot;Superforecaster&quot; is a term coined by psychologist Philip Tetlock and Barbara Mellers based on results from the Good Judgment Project (GJP), the winning entry in IARPA&apos;s Aggregative Contingent Estimation (ACE) tournament (2011–2015). Unlike pundits or credentialed experts, superforecasters are qualified by track record, not title: every judgment they make is scored against a real-world, resolvable event, so their calibration is empirically verified rather than assumed.
+                &quot;Superforecaster&quot; is a term coined by psychologist Philip Tetlock and Barbara Mellers. It grew out of the Good Judgment Project. The Good Judgment Project was the winning entry in IARPA&apos;s Aggregative Contingent Estimation tournament, a multi-year competition run by the US intelligence community to find the most accurate forecasting method available. Superforecasters emerged as the clear winner. They are qualified by proven performance, not by title. Every forecast they make is scored against a real-world outcome. Their edge is not opinion. It is measured, repeated, and public.
+              </p>
+
+              <h2 className="text-2xl font-bold text-black font-sans mb-3 mt-10">A Track Record That Consistently Beats the Competition</h2>
+              <p className="text-gray-800 leading-7 mb-4">
+                Superforecasters do not just forecast well. They consistently outperform every other established method of intelligence gathering.
+              </p>
+              <ul className="list-disc pl-6 space-y-2 text-gray-800 leading-7 mb-4">
+                <li><strong>They beat classified intelligence.</strong> In the original IARPA tournament, superforecasters were found to be 30% more accurate than intelligence analysts working with access to classified information. The finding rocked conventional wisdom across the intelligence community.</li>
+                <li><strong>They beat prediction markets.</strong> Across several tournament seasons, superforecaster forecasts outperformed live prediction markets tracking the same questions.</li>
+                <li><strong>They beat AI.</strong> In July 2026, the Financial Times tested a leading AI forecasting model against the market on Federal Reserve rate decisions. The AI model matched the market but never beat it. It could not reproduce the judgment that sets superforecasters apart: knowing when to step away from the crowd. When Silicon Valley Bank failed in 2023 and markets swung sharply toward a Fed policy pivot, superforecasters saw no real signal and barely moved their forecast. They were right. The market corrected its overreaction later.</li>
+              </ul>
+              <p className="text-gray-800 leading-7 mb-4">
+                This makes superforecasters uniquely suited to power a price oracle. They carry a demonstrated record of outperforming classified intelligence, open markets, and now AI, across decades of real-world tests.
               </p>
 
               <h2 className="text-2xl font-bold text-black font-sans mb-3 mt-10">Why They&apos;re Qualified</h2>
               <p className="text-gray-800 leading-7 mb-4">
-                Forecast accuracy is measured with the Brier score, which captures the gap between a forecaster&apos;s stated probability and the actual outcome (0 = perfect, 2 = worst possible). Across GJP tournament seasons, superforecasters posted an average Brier score of roughly 0.166, compared to about 0.259 for the broader forecaster pool — and in several seasons they outperformed intelligence community analysts who had access to classified information. That track record, compiled over hundreds of real-world geopolitical and economic questions, is what qualifies them to price uncertainty on contested claims: their edge is demonstrated calibration, not subject-matter credentials alone.
+                Forecast accuracy is measured with the Brier score. It captures the gap between a forecaster&apos;s stated probability and the actual outcome. A score of 0 is perfect. A score of 2 is the worst possible result. Superforecasters posted an average Brier score of roughly 0.166 across tournament seasons. The broader forecaster pool averaged about 0.259. That gap holds across hundreds of real-world geopolitical and economic questions. It is the foundation of their qualification: demonstrated calibration rather than credentials alone.
               </p>
 
               <h2 className="text-2xl font-bold text-black font-sans mb-3 mt-10">How They&apos;re Vetted</h2>
               <p className="text-gray-800 leading-7 mb-4">
-                Good Judgment&apos;s vetting process, which the SBI panel draws on, works as follows:
+                Good Judgment&apos;s vetting process is rigorous, and the SBI panel draws on the same standard.
               </p>
               <ul className="list-disc pl-6 space-y-2 text-gray-800 leading-7 mb-4">
-                <li><strong>Minimum sample size:</strong> a forecaster must answer at least 50 questions within a tournament season before being eligible, so a lucky streak can&apos;t be mistaken for skill.</li>
-                <li><strong>Accuracy threshold:</strong> superforecaster status is awarded to roughly the top 2% of forecasters by average accuracy score within that season.</li>
-                <li><strong>Qualitative review:</strong> Good Judgment also evaluates comment quality (the reasoning behind a forecast, not just the number) and collegiality, since superforecasters work in small teams and their rationales are delivered to clients alongside the probability itself.</li>
-                <li><strong>Re-qualification:</strong> status is not permanent. Track record is re-evaluated each season, so underperformance can result in a forecaster losing superforecaster status — the same relegation logic the SBI panel applies internally.</li>
+                <li><strong>Minimum sample size.</strong> A forecaster must answer at least 50 questions within a tournament season before becoming eligible. This rules out a lucky streak.</li>
+                <li><strong>Accuracy threshold.</strong> Superforecaster status goes to roughly the top 2% of forecasters by average accuracy score within that season.</li>
+                <li><strong>Qualitative review.</strong> Good Judgment also reviews comment quality and collegiality. Reasoning matters as much as the number itself. Superforecasters work in small teams, and their rationale is delivered to clients alongside every probability.</li>
+                <li><strong>Re-qualification.</strong> Status is not permanent. Track record is re-evaluated every season. Underperformance can cost a forecaster their status. The SBI panel applies this same relegation logic internally.</li>
               </ul>
 
               <h2 className="text-2xl font-bold text-black font-sans mb-3 mt-10">How Many Superforecasters Are Used</h2>
               <p className="text-gray-800 leading-7 mb-4">
-                Good Judgment Inc. currently maintains an active pool of roughly 180 professional superforecasters, drawn from a base of over 100,000 forecasters who have participated in the original GJP tournament and its successor, Good Judgment Open.
+                Good Judgment Inc. maintains an active pool of roughly 180 professional superforecasters. They are drawn from a base of over 100,000 forecasters who have taken part in the original tournament and its successor, Good Judgment Open.
               </p>
               <p className="text-gray-800 leading-7 mb-4">
-                [Note: insert the specific number of superforecasters the SBI panel itself draws on or contracts with — I don&apos;t have that figure for The Citizen&apos;s panel.]
+                (Note: insert the number of superforecasters the SBI panel itself draws on. I don&apos;t have that figure for The Citizen&apos;s panel.)
               </p>
 
               <h2 className="text-2xl font-bold text-black font-sans mb-3 mt-10">Good Judgment&apos;s Aggregation Methodology</h2>
               <p className="text-gray-800 leading-7 mb-4">
-                GJP does not average individual forecasts naively. Its aggregation algorithm — sometimes called &quot;elitist&quot; aggregation — combines two steps:
+                Good Judgment does not average forecasts naively. Its method is often called elitist aggregation, and it combines two steps.
               </p>
               <ul className="list-disc pl-6 space-y-2 text-gray-800 leading-7 mb-4">
-                <li><strong>Weighting:</strong> each forecaster&apos;s input is weighted by their historical accuracy (better track record = more weight) and by recency (forecasts updated more recently count more than stale ones).</li>
-                <li><strong>Extremizing:</strong> the weighted average is then pushed further toward 0 or 1 than a simple average would suggest. This corrects for a known bias in group aggregation: because forecasters&apos; private information overlaps only partially, a plain average tends to be more moderate (closer to 50%) than the group&apos;s true collective knowledge justifies. The degree of extremizing scales with the size and diversity of the forecaster pool — a larger, more independent pool of information justifies pushing the aggregate further toward certainty.</li>
+                <li><strong>Weighting.</strong> Each forecaster&apos;s input is weighted by track record and by recency. A better track record earns more weight. A recently updated forecast earns more weight than a stale one.</li>
+                <li><strong>Extremizing.</strong> The weighted average is then pushed further toward 0 or 1 than a simple average would suggest. This corrects a known bias: forecasters&apos; private information overlaps only partially, so a plain average tends to land closer to 50% than the group&apos;s true collective knowledge supports. The larger and more diverse the forecaster pool, the further the aggregate can safely be pushed toward certainty.</li>
               </ul>
               <p className="text-gray-800 leading-7 mb-4">
-                This weighted-and-extremized approach outperformed simple averaging, unweighted medians, and in several tournament years, prediction markets, within IARPA&apos;s ACE tournament. (It&apos;s worth noting the value of extremizing specifically has drawn some later academic debate, with a few replications questioning how much of GJP&apos;s edge came from extremizing versus weighting alone.)
+                This weighted and extremized approach beat simple averaging, unweighted medians, and in several tournament years, live prediction markets, inside IARPA&apos;s tournament. The SBI methodology follows the same model. Individual superforecaster estimates are weighted by track record and recency, then extremized, to produce the published index value.
               </p>
               <p className="text-gray-800 leading-7 mb-4">
-                The SBI&apos;s own methodology is modeled on this approach: individual superforecaster estimates are weighted by track record and recency, then extremized, to produce the published index value.
+                Learn more about Good Judgment&apos;s research and services at{' '}
+                <a href="https://goodjudgment.com/" target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">
+                  goodjudgment.com
+                </a>.
               </p>
             </div>
           )}
@@ -148,9 +174,9 @@ function DocsContent() {
                 Three Superforecasters each trade the market with $1,000 in unlevered capital:
               </p>
               <ul className="list-disc pl-6 space-y-2 text-gray-800 leading-7 mb-4">
-                <li><strong>Trader A (&quot;The Skeptic&quot;)</strong> — buys NO early at 95¢/share.</li>
-                <li><strong>Trader B (&quot;The Sharp&quot;)</strong> — buys YES early at 5¢/share, before the evidence breaks.</li>
-                <li><strong>Trader C (&quot;The Second Mover&quot;)</strong> — buys YES mid-move at 50¢/share, after rumors surface but before the rag is confirmed.</li>
+                <li><strong>Trader A (&quot;The Skeptic&quot;)</strong>: buys NO early at 95¢/share.</li>
+                <li><strong>Trader B (&quot;The Sharp&quot;)</strong>: buys YES early at 5¢/share, before the evidence breaks.</li>
+                <li><strong>Trader C (&quot;The Second Mover&quot;)</strong>: buys YES mid-move at 50¢/share, after rumors surface but before the rag is confirmed.</li>
               </ul>
               <p className="text-gray-800 leading-7 mb-4">
                 When the market settles near 90¢ YES (10¢ NO), the results diverge sharply:
@@ -209,6 +235,163 @@ function DocsContent() {
               <p className="text-gray-800 leading-7 mb-4">
                 At year-end, the three traders are ranked by P&amp;L. Trader A backed the wrong side of a real-world outcome and posted the panel&apos;s worst P&amp;L. Trader A falls into the bottom quartile and is relegated, removed from the price oracle and replaced by a new forecaster with a proven record of positive unlevered P&amp;L. Traders B and C, having correctly priced and moved with the evidence, keep their seats and re-enter the following year&apos;s price oracle. Over time, this continuous selection process means The Citizen&apos;s price oracle will select for market participants who are best able to price uncertainty and discover truth as quickly as possible.
               </p>
+            </div>
+          )}
+
+          {activeTab === 'how-derps-work' && (
+            <div>
+              <p className="text-gray-800 leading-7 mb-4 mt-10">
+                The Citizen&apos;s prediction markets are powered by{' '}
+                <a href="https://derp.trade" target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">
+                  derp.trade
+                </a>
+                , which handles all market making and trade execution. The overview below explains how DERPs work in plain language. For formulas, code, and the full technical specification, see the{' '}
+                <a href="https://docs.derp.trade/docs/protocol/overview" target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">
+                  derp.trade protocol docs
+                </a>.
+              </p>
+
+              <h2 className="text-2xl font-bold text-black font-sans mb-3 mt-10">The Basics</h2>
+              <p className="text-gray-800 leading-7 mb-4">
+                A derivative is a financial contract whose value is based on the price of something else. On derp.trade, that &quot;something else&quot; is a token, such as SOL, WIF, or any other Solana token. On The Citizen, the underlying is the probability of a contested claim resolving one way or the other.
+              </p>
+              <p className="text-gray-800 leading-7 mb-4">
+                When you trade on The Citizen, you are not buying or selling the underlying claim directly. Instead, you are opening a position that tracks the market&apos;s implied probability:
+              </p>
+              <ul className="list-disc pl-6 space-y-2 text-gray-800 leading-7 mb-4">
+                <li><strong>Long</strong>: you profit if the price goes up.</li>
+                <li><strong>Short</strong>: you profit if the price goes down.</li>
+              </ul>
+              <p className="text-gray-800 leading-7 mb-4">
+                You can use leverage to amplify your position. For example, 10x leverage means a 1% price move gives you a 10% gain (or loss). All positions are denominated in USDT. You deposit USDT as collateral and receive your profits in USDT.
+              </p>
+
+              <h2 className="text-2xl font-bold text-black font-sans mb-3 mt-10">How Trading Works</h2>
+              <p className="text-gray-800 leading-7 mb-4">
+                Here is the flow of a typical trade on The Citizen:
+              </p>
+              <ol className="list-decimal pl-6 space-y-2 text-gray-800 leading-7 mb-4">
+                <li><strong>Pick a market</strong>: browse the available contested-claims markets on The Citizen.</li>
+                <li><strong>Choose long or short</strong>: decide whether you think the implied probability will go up or down.</li>
+                <li><strong>Set your position size and leverage</strong>: enter the amount of USDT you want to put up as collateral and choose your leverage multiplier.</li>
+                <li><strong>The AMM takes the other side</strong>: derp.trade&apos;s automated market maker fills your order instantly. There is no waiting for a counterparty.</li>
+                <li><strong>Your PnL updates in real time</strong>: as the market price moves, your unrealized profit or loss changes.</li>
+                <li><strong>Close when you are ready</strong>, or get liquidated if your collateral runs out.</li>
+              </ol>
+
+              <h2 className="text-2xl font-bold text-black font-sans mb-3 mt-10">The AMM: Your Trading Partner</h2>
+              <p className="text-gray-800 leading-7 mb-4">
+                On traditional exchanges, you need another person on the other side of your trade. On derp.trade, an automated market maker (AMM) fills that role. The AMM is a smart contract that is always willing to trade with you.
+              </p>
+              <p className="text-gray-800 leading-7 mb-4">
+                Because the AMM is always available, markets can exist for tokens with low trading volume. There is no minimum liquidity requirement; the AMM handles everything.
+              </p>
+              <p className="text-gray-800 leading-7 mb-4">
+                The AMM earns trading fees and funding payments, which build up its liquidity over time. The more a market is traded, the deeper its liquidity becomes.
+              </p>
+
+              <h2 className="text-2xl font-bold text-black font-sans mb-3 mt-10">Funding Rates</h2>
+              <p className="text-gray-800 leading-7 mb-4">
+                To keep markets balanced, derp.trade uses funding rates. If many more traders are long than short (or vice versa), the majority side pays a small fee to the minority side. This encourages traders to take the less popular side and keeps the market healthy.
+              </p>
+              <p className="text-gray-800 leading-7 mb-4">
+                Funding is charged continuously, every 15 seconds in small amounts. You can see the current funding rate for any market on the trading page before you open a position.
+              </p>
+
+              <h2 className="text-2xl font-bold text-black font-sans mb-3 mt-10">Leverage and Liquidation</h2>
+              <p className="text-gray-800 leading-7 mb-4">
+                Leverage lets you control a larger position with less collateral. For example, with 10x leverage and 10 USDT of collateral, you control a 100 USDT position.
+              </p>
+              <p className="text-gray-800 leading-7 mb-4">
+                The tradeoff is risk. Higher leverage means your position gets liquidated more easily. Liquidation happens when your losses eat through your collateral. At that point, the protocol closes your position and you lose your deposited collateral.
+              </p>
+              <p className="text-gray-800 leading-7 mb-4">
+                Before opening any trade, check your liquidation price, the price at which your position would be liquidated. The trading UI shows this clearly.
+              </p>
+              <div className="border border-amber-200 bg-amber-50 rounded-lg p-4 mb-4">
+                <p className="text-gray-800 leading-7 font-semibold mb-1">Risk warning</p>
+                <p className="text-gray-800 leading-7">
+                  Leveraged trading is risky. You can lose your entire deposited collateral. Never trade more than you can afford to lose.
+                </p>
+              </div>
+
+              <h2 className="text-2xl font-bold text-black font-sans mb-3 mt-10">DERPs vs. Traditional Perps</h2>
+              <div className="overflow-x-auto mb-6">
+                <table className="w-full text-sm text-gray-800 border border-gray-200">
+                  <thead>
+                    <tr className="bg-gray-50 border-b border-gray-200">
+                      <th className="text-left font-semibold px-3 py-2"></th>
+                      <th className="text-left font-semibold px-3 py-2">Traditional perps</th>
+                      <th className="text-left font-semibold px-3 py-2">DERPs</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr className="border-b border-gray-200">
+                      <td className="px-3 py-2 font-semibold">Liquidity</td>
+                      <td className="px-3 py-2">Order book: needs many buyers and sellers</td>
+                      <td className="px-3 py-2">AMM: always available</td>
+                    </tr>
+                    <tr className="border-b border-gray-200">
+                      <td className="px-3 py-2 font-semibold">Supported assets</td>
+                      <td className="px-3 py-2">Major tokens only (BTC, ETH, SOL)</td>
+                      <td className="px-3 py-2">Any token on Solana</td>
+                    </tr>
+                    <tr className="border-b border-gray-200">
+                      <td className="px-3 py-2 font-semibold">Market creation</td>
+                      <td className="px-3 py-2">Requires exchange approval and liquidity</td>
+                      <td className="px-3 py-2">Permissionless and free</td>
+                    </tr>
+                    <tr className="border-b border-gray-200">
+                      <td className="px-3 py-2 font-semibold">Margin type</td>
+                      <td className="px-3 py-2">Cross or isolated</td>
+                      <td className="px-3 py-2">Isolated only</td>
+                    </tr>
+                    <tr>
+                      <td className="px-3 py-2 font-semibold">Unique risk</td>
+                      <td className="px-3 py-2">Counterparty and exchange risk</td>
+                      <td className="px-3 py-2">
+                        AMM payout risk (
+                        <a href="https://docs.derp.trade/docs/risk/risk-overview" target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">
+                          learn more
+                        </a>
+                        )
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <h2 className="text-2xl font-bold text-black font-sans mb-3 mt-10">Further Reading</h2>
+              <p className="text-gray-800 leading-7 mb-4">
+                Market making on The Citizen is handled entirely by derp.trade. For step-by-step guides and the complete documentation, visit the derp.trade docs:
+              </p>
+              <ul className="list-disc pl-6 space-y-2 text-gray-800 leading-7 mb-4">
+                <li>
+                  <a href="https://docs.derp.trade/docs/welcome/how-derps-work" target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">
+                    How DERPs work
+                  </a>
+                </li>
+                <li>
+                  <a href="https://docs.derp.trade/docs/getting-started/setting-up-your-wallet" target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">
+                    Setting up your wallet
+                  </a>
+                </li>
+                <li>
+                  <a href="https://docs.derp.trade/docs/getting-started/your-first-trade" target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">
+                    Your first trade
+                  </a>
+                </li>
+                <li>
+                  <a href="https://docs.derp.trade/docs/protocol/overview" target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">
+                    Protocol overview
+                  </a>
+                </li>
+                <li>
+                  <a href="https://docs.derp.trade/docs/risk/risk-overview" target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">
+                    Risk overview
+                  </a>
+                </li>
+              </ul>
             </div>
           )}
 
@@ -723,7 +906,7 @@ function DocsContent() {
                 <strong>Daily Price Change Caps:</strong> A absolute 15% limit on total price change per market day prevents rapid price changes associated with multiple manipulator attacks. This ensures that even well-funded coalitions cannot force prices to extreme levels quickly; instead, they must sustain pressure over multiple days, giving the market time to respond. The daily cap forces manipulators to spread attacks across time, increasing both coordination complexity and the opportunity for detection.
               </li>
               <li>
-                <strong>Threat of Fund Seizure:</strong> The possibility of losing funds for coordinated manipulation creates significant deterrent risk. By maintaining the authority to seize or freeze funds associated with suspicious trading patterns, the market creates asymmetric risk for manipulators—they risk losing not just their manipulation profits but their entire capital. This threat, especially when combined with KYC identity verification, makes coordinated attacks financially hazardous beyond just their execution costs.
+                <strong>Threat of Fund Seizure:</strong> The possibility of losing funds for coordinated manipulation creates significant deterrent risk. By maintaining the authority to seize or freeze funds associated with suspicious trading patterns, the market creates asymmetric risk for manipulators, who risk losing not just their manipulation profits but their entire capital. This threat, especially when combined with KYC identity verification, makes coordinated attacks financially hazardous beyond just their execution costs.
               </li>
             </ol>
             <p className="text-gray-800 leading-7 text-base mb-4">
