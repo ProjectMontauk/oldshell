@@ -113,11 +113,10 @@ function DocsContent() {
               </p>
               <ul className="list-disc pl-6 space-y-2 text-gray-800 leading-7 mb-4">
                 <li><strong>They beat classified intelligence.</strong> In the original IARPA tournament, superforecasters were found to be 30% more accurate than intelligence analysts working with access to classified information. The finding rocked conventional wisdom across the intelligence community.</li>
-                <li><strong>They beat prediction markets.</strong> Across several tournament seasons, superforecaster forecasts outperformed live prediction markets tracking the same questions.</li>
                 <li><strong>They beat AI.</strong> In July 2026, the Financial Times tested a leading AI forecasting model against the market on Federal Reserve rate decisions. The AI model matched the market but never beat it. It could not reproduce the judgment that sets superforecasters apart: knowing when to step away from the crowd. When Silicon Valley Bank failed in 2023 and markets swung sharply toward a Fed policy pivot, superforecasters saw no real signal and barely moved their forecast. They were right. The market corrected its overreaction later.</li>
               </ul>
               <p className="text-gray-800 leading-7 mb-4">
-                This makes superforecasters uniquely suited to power a price oracle. They carry a demonstrated record of outperforming classified intelligence, open markets, and now AI, across decades of real-world tests.
+                This makes superforecasters uniquely suited to power a price oracle. They carry a demonstrated record of outperforming classified intelligence and now AI, across decades of real-world tests.
               </p>
 
               <h2 className="text-2xl font-bold text-black font-sans mb-3 mt-10">Why They&apos;re Qualified</h2>
