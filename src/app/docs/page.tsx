@@ -318,12 +318,6 @@ function DocsContent() {
               <p className="text-gray-800 leading-7 mb-4">
                 Before opening any trade, check your liquidation price, the price at which your position would be liquidated. The trading UI shows this clearly.
               </p>
-              <div className="border border-amber-200 bg-amber-50 rounded-lg p-4 mb-4">
-                <p className="text-gray-800 leading-7 font-semibold mb-1">Risk warning</p>
-                <p className="text-gray-800 leading-7">
-                  Leveraged trading is risky. You can lose your entire deposited collateral. Never trade more than you can afford to lose.
-                </p>
-              </div>
 
               <h2 className="text-2xl font-bold text-black font-sans mb-3 mt-10">DERPs vs. Traditional Perps</h2>
               <div className="overflow-x-auto mb-6">
