@@ -9,7 +9,7 @@ import { useSearchParams } from 'next/navigation';
 function DocsContent() {
   const searchParams = useSearchParams();
   const tabParam = searchParams?.get('tab');
-  const validTabs = ['superforecaster-methodology', 'relegation-system', 'how-derps-work', 'quarterly-trial-procedure', 'economics', 'idea-futures', 'review-boards'] as const;
+  const validTabs = ['flf-docs', 'superforecaster-methodology', 'relegation-system', 'how-derps-work', 'quarterly-trial-procedure', 'economics', 'idea-futures', 'review-boards'] as const;
   type DocsTab = typeof validTabs[number];
   const isValidTab = (tab: string | null | undefined): tab is DocsTab =>
     !!tab && validTabs.includes(tab as DocsTab);
@@ -29,6 +29,16 @@ function DocsContent() {
         <div className="max-w-3xl mx-auto px-4 py-8">
           <div className="flex gap-4 mb-6 border-b border-gray-200">
             <button
+              onClick={() => setActiveTab('flf-docs')}
+              className={`pb-2 px-1 font-sans text-[0.956rem] font-semibold transition-colors ${
+                activeTab === 'flf-docs'
+                  ? 'text-black border-b-2 border-black'
+                  : 'text-gray-500 hover:text-gray-700'
+              }`}
+            >
+              Documentation
+            </button>
+            <button
               onClick={() => setActiveTab('superforecaster-methodology')}
               className={`pb-2 px-1 font-sans text-[0.956rem] font-semibold transition-colors ${
                 activeTab === 'superforecaster-methodology'
@@ -39,16 +49,6 @@ function DocsContent() {
               Superforecasters
             </button>
             <button
-              onClick={() => setActiveTab('relegation-system')}
-              className={`pb-2 px-1 font-sans text-[0.956rem] font-semibold transition-colors ${
-                activeTab === 'relegation-system'
-                  ? 'text-black border-b-2 border-black'
-                  : 'text-gray-500 hover:text-gray-700'
-              }`}
-            >
-              Idea Futures Relegation
-            </button>
-            <button
               onClick={() => setActiveTab('how-derps-work')}
               className={`pb-2 px-1 font-sans text-[0.956rem] font-semibold transition-colors ${
                 activeTab === 'how-derps-work'
@@ -56,7 +56,17 @@ function DocsContent() {
                   : 'text-gray-500 hover:text-gray-700'
               }`}
             >
-              Markets
+              Market Making
+            </button>
+            <button
+              onClick={() => setActiveTab('relegation-system')}
+              className={`pb-2 px-1 font-sans text-[0.956rem] font-semibold transition-colors ${
+                activeTab === 'relegation-system'
+                  ? 'text-black border-b-2 border-black'
+                  : 'text-gray-500 hover:text-gray-700'
+              }`}
+            >
+              Idea Futures
             </button>
             <button
               onClick={() => setActiveTab('quarterly-trial-procedure')}
@@ -66,7 +76,7 @@ function DocsContent() {
                   : 'text-gray-500 hover:text-gray-700'
               }`}
             >
-              Quarterly Trial Procedure
+              Trial Procedure
             </button>
             <button
               onClick={() => setActiveTab('economics')}
@@ -99,6 +109,67 @@ function DocsContent() {
               Review Boards
             </button>
           </div>
+
+          {activeTab === 'flf-docs' && (
+            <div>
+              <h2 className="text-2xl font-bold text-black font-sans mb-3 mt-10">Introduction</h2>
+              <p className="text-gray-800 leading-7 mb-4">
+                The Citizen is a futures market platform designed to surface truth about disputed historical and scientific claims through financial incentives and adversarial adjudication. The world&apos;s top forecasters are contracted to continuously provide probability estimates on contested claims that lack a clear resolution event, such as &quot;Was COVID-19 a lab leak?&quot; A futures market is then listed against the Superforecaster probability estimate, enabling market participants to trade positions, like &quot;Yes, COVID-19 was a lab leak.&quot; The result is that long-horizon truth becomes a tradeable asset, giving participants a direct financial incentive to surface evidence that uncovers the truth about the underlying question.
+              </p>
+              <p className="text-gray-800 leading-7 mb-4">
+                The Superforecasters will start as humans using AI, but over time, we expect that many of the Superforecasters will become fully automated AI systems. Frontier AI forecasting systems like Mantic or Google DeepMind are already closing the gap with human forecasters. As this trend continues, we expect a growing share of the Superforecaster panel to become fully or partially automated, increasing the SBI&apos;s update frequency and lowering its marginal cost.
+              </p>
+              <p className="text-gray-800 leading-7 mb-4">
+                We expect a significant share of trading volume on The Citizen to come from AI agents rather than direct human participation, mirroring the pattern already visible on Polymarket and Kalshi, where bot traders account for a substantial portion of activity. These agents continuously monitor news feeds, academic publications, and other information sources, and trade the moment they detect something that should move the odds on a given question. This is a feature of the design, not a side effect: bot traders compress the time between new evidence emerging and that evidence being reflected in the market price, which is exactly the mechanism that makes the probability estimate valuable. As the underlying models improve, we&apos;d expect these agents to get better at distinguishing genuinely price-moving information from noise, further tightening the link between real-world evidence and market odds.
+              </p>
+              <h2 className="text-2xl font-bold text-black font-sans mb-3 mt-10">Design</h2>
+              <p className="text-gray-800 leading-7 mb-4">
+                The other tabs provide more information about the Citizen&apos;s design choices. Below is a summary of each tab:
+              </p>
+              <ul className="list-disc pl-6 space-y-2 text-gray-800 leading-7 mb-4">
+                <li>
+                  <button
+                    type="button"
+                    onClick={() => setActiveTab('superforecaster-methodology')}
+                    className="font-semibold text-blue-600 underline hover:text-blue-800"
+                  >
+                    Superforecasters
+                  </button>
+                  : Superforecasters are professional forecasters qualified by track record. We use them as the price oracle because their judgments are scored against real-world outcomes and have a demonstrated history of accurate calibration.
+                </li>
+                <li>
+                  <button
+                    type="button"
+                    onClick={() => setActiveTab('how-derps-work')}
+                    className="font-semibold text-blue-600 underline hover:text-blue-800"
+                  >
+                    Market Making
+                  </button>
+                  : Market making on The Citizen is handled by derp.trade futures markets. We use futures because they can track an index continuously, even when there are no earnings and no final resolution event.
+                </li>
+                <li>
+                  <button
+                    type="button"
+                    onClick={() => setActiveTab('relegation-system')}
+                    className="font-semibold text-blue-600 underline hover:text-blue-800"
+                  >
+                    Idea Futures
+                  </button>
+                  : Idea futures are long-dated markets where Superforecasters trade contested claims against one another. We chose this design so the panel continuously updates probabilities through competition, and a relegation system selects for the strongest track records over time.
+                </li>
+                <li>
+                  <button
+                    type="button"
+                    onClick={() => setActiveTab('quarterly-trial-procedure')}
+                    className="font-semibold text-blue-600 underline hover:text-blue-800"
+                  >
+                    Trial Procedure
+                  </button>
+                  : The trial procedure is a Science Court-style review in which Superforecasters act as judges and case managers. We use it to test contested claims adversarially, publish accepted facts, and identify the cruxes most likely to move the market.
+                </li>
+              </ul>
+            </div>
+          )}
 
           {activeTab === 'superforecaster-methodology' && (
             <div>
@@ -139,9 +210,6 @@ function DocsContent() {
               <p className="text-gray-800 leading-7 mb-4">
                 Good Judgment Inc. maintains an active pool of roughly 180 professional superforecasters. They are drawn from a base of over 100,000 forecasters who have taken part in the original tournament and its successor, Good Judgment Open.
               </p>
-              <p className="text-gray-800 leading-7 mb-4">
-                (Note: insert the number of superforecasters the SBI panel itself draws on. I don&apos;t have that figure for The Citizen&apos;s panel.)
-              </p>
 
               <h2 className="text-2xl font-bold text-black font-sans mb-3 mt-10">Good Judgment&apos;s Aggregation Methodology</h2>
               <p className="text-gray-800 leading-7 mb-4">
@@ -165,7 +233,18 @@ function DocsContent() {
 
           {activeTab === 'relegation-system' && (
             <div>
-              <h2 className="text-2xl font-bold text-black font-sans mb-3 mt-10">How It Works</h2>
+              <h2 className="text-2xl font-bold text-black font-sans mb-3 mt-10">What Are Idea Futures?</h2>
+              <p className="text-gray-800 leading-7 mb-4">
+                Idea futures are long-dated prediction markets. Unlike short-horizon markets that resolve when a near-term event occurs, an idea future stays open until a claim can be settled by a committee in the future, based on the evidence available at that time. Traders take positions on whether a contested fact or story is true or false, and the market price reflects the collective probability assigned to that claim over time.
+              </p>
+              <p className="text-gray-800 leading-7 mb-4">
+                On The Citizen, each idea futures market is run internally among Superforecasters. They compete in a market-based competition: by trading against one another, they continuously update each market so that its price reflects the true probability that the underlying event occurred or did not occur, as new evidence arrives.
+              </p>
+              <p className="text-gray-800 leading-7 mb-4">
+                We will begin by contracting a basic probability estimate from Superforecasters. Over time, we will switch to a full idea futures model, where Superforecasters trade against one another and the market price itself becomes the published probability.
+              </p>
+
+              <h2 className="text-2xl font-bold text-black font-sans mb-3 mt-10">Idea Futures Relegation</h2>
               <p className="text-gray-800 leading-7 mb-4">
                 Superforecasters on the price oracle are ranked annually by unlevered profit and loss (P&amp;L) across every market they trade. At year-end, the bottom quartile by P&amp;L is removed from the price oracle and replaced by qualified challenger forecasters carrying the strongest P&amp;L track records. It functions like a promotion/relegation system: a seat on the price oracle is earned and re-earned every year, so the panel continuously selects for the traders who price uncertainty most accurately and update fastest on new evidence. Over time, this continuous selection process means the price oracle comes to represent the market consensus of the best people in the world at anticipating which facts or stories are true or false.
               </p>
