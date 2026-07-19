@@ -112,6 +112,16 @@ function DocsContent() {
 
           {activeTab === 'flf-docs' && (
             <div>
+              <div className="relative w-full mb-6 mt-10" style={{ paddingBottom: '56.25%' }}>
+                <iframe
+                  className="absolute top-0 left-0 w-full h-full rounded-lg"
+                  src="https://www.youtube.com/embed/8AGufGYTa-M"
+                  title="Walkthrough"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                />
+              </div>
+
               <h2 className="text-2xl font-bold text-black font-sans mb-3 mt-10">Introduction</h2>
               <p className="text-gray-800 leading-7 mb-4">
                 The Citizen is a futures market platform designed to surface truth about disputed historical and scientific claims through financial incentives and adversarial adjudication. The world&apos;s top forecasters are contracted to continuously provide probability estimates on contested claims that lack a clear resolution event, such as &quot;Was COVID-19 a lab leak?&quot; A futures market is then listed against the Superforecaster probability estimate, enabling market participants to trade positions, like &quot;Yes, COVID-19 was a lab leak.&quot; The result is that long-horizon truth becomes a tradeable asset, giving participants a direct financial incentive to surface evidence that uncovers the truth about the underlying question.
