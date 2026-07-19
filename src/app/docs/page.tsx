@@ -13,7 +13,7 @@ function DocsContent() {
   type DocsTab = typeof validTabs[number];
   const isValidTab = (tab: string | null | undefined): tab is DocsTab =>
     !!tab && validTabs.includes(tab as DocsTab);
-  const initialTab = isValidTab(tabParam) ? tabParam : 'superforecaster-methodology';
+  const initialTab = isValidTab(tabParam) ? tabParam : 'flf-docs';
   const [activeTab, setActiveTab] = useState<DocsTab>(initialTab);
   
   useEffect(() => {
