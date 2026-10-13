@@ -2,8 +2,11 @@
 
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
-import { getHomepageMarkets, Market } from "../src/data/markets";
+import {
+  getHomepageMarkets,
+  HOMEPAGE_FEATURED_MARKET_ID,
+  Market,
+} from "../src/data/markets";
 import { useTheme } from "../src/contexts/ThemeContext";
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, ReferenceLine } from "recharts";
 import {
@@ -14,14 +17,16 @@ import {
 // Backend API base URL - same-origin Next.js API routes
 const API_BASE_URL = "";
 
-const HOMEPAGE_MARKETS_WITHOUT_IMAGE = new Set([
-  "jfk",
-  "covid-lab-leak",
-  "cern-black-hole",
-]);
-
 // Large horizontal market card used on the homepage
-const FeaturedMarket = ({ market, probs }: { market: Market; probs: { yes: number; no: number } | null }) => {
+const FeaturedMarket = ({
+  market,
+  probs,
+  showDescription = true,
+}: {
+  market: Market;
+  probs: { yes: number; no: number } | null;
+  showDescription?: boolean;
+}) => {
   const router = useRouter();
   const { resolved: themeResolved } = useTheme();
   const yes = probs?.yes ?? 0;
@@ -82,7 +87,7 @@ const FeaturedMarket = ({ market, probs }: { market: Market; probs: { yes: numbe
 
   return (
     <div
-      className="bg-white rounded-2xl shadow border border-gray-200 p-5 md:p-6 lg:p-7 cursor-pointer hover:shadow-xl transition"
+      className="bg-white rounded-2xl shadow border border-gray-200 p-5 md:p-6 lg:p-7 cursor-pointer hover:shadow-xl transition h-full"
       onClick={() => router.push(`/markets/${market.id}`)}
       role="button"
       tabIndex={0}
@@ -90,108 +95,97 @@ const FeaturedMarket = ({ market, probs }: { market: Market; probs: { yes: numbe
         if (e.key === "Enter") router.push(`/markets/${market.id}`);
       }}
     >
-      <div className="flex flex-col lg:flex-row gap-5">
-        {!HOMEPAGE_MARKETS_WITHOUT_IMAGE.has(market.id) && (
-          <div className="lg:w-2/5">
-            <Image
-              src={market.image}
-              alt={market.title}
-              width={640}
-              height={360}
-              className="w-full h-52 md:h-64 lg:h-60 rounded-xl object-cover object-top"
-            />
-          </div>
-        )}
-        <div className="flex-1 flex flex-col justify-between">
-          <div>
-            <h2 className="text-lg md:text-xl font-bold text-gray-900 mb-2">
-              {market.title}
-            </h2>
+      <div className="flex flex-col justify-between h-full">
+        <div>
+          <h2 className="text-lg md:text-xl font-bold text-gray-900 mb-2">
+            {market.title}
+          </h2>
+          {showDescription && (
             <p className="text-xs md:text-sm text-gray-600 mb-4 line-clamp-3">
               {market.description}
             </p>
-            {/* Yes / No rows: fixed gap from bars to odds (match market card spacing) */}
-            <div className="mt-3 space-y-2">
-              <div className="flex items-center text-xs gap-3">
-                <div className="flex items-center gap-2">
-                  <span className="text-gray-800 font-medium">Yes</span>
-                  <span className="h-[2px] w-20 bg-green-400 rounded-full" />
-                </div>
-                <div className="flex items-center gap-3">
-                  <span className="text-[11px] text-gray-500">
-                    {yesOdds ? `${yesOdds}x` : "--"}
-                  </span>
-                  <span className="px-3 py-1 rounded-full border border-green-300 text-green-700 text-xs font-semibold min-w-[3rem] text-center">
-                    {yesPct !== null ? `${yesPct}%` : "--"}
-                  </span>
-                </div>
+          )}
+          {/* Yes / No rows: fixed gap from bars to odds (match market card spacing) */}
+          <div className="mt-3 space-y-2">
+            <div className="flex items-center text-xs gap-3">
+              <div className="flex items-center gap-2">
+                <span className="text-gray-800 font-medium">Yes</span>
+                <span className="h-[2px] w-20 bg-green-400 rounded-full" />
               </div>
-              <div className="flex items-center text-xs gap-3">
-                <div className="flex items-center gap-2">
-                  <span className="text-gray-800 font-medium">No</span>
-                  <span className="h-[2px] w-20 bg-blue-500 rounded-full" />
-                </div>
-                <div className="flex items-center gap-3">
-                  <span className="text-[11px] text-gray-500">
-                    {noOdds ? `${noOdds}x` : "--"}
-                  </span>
-                  <span className="px-3 py-1 rounded-full border border-blue-300 text-blue-700 text-xs font-semibold min-w-[3rem] text-center">
-                    {noPct !== null ? `${noPct}%` : "--"}
-                  </span>
-                </div>
+              <div className="flex items-center gap-3">
+                <span className="text-[11px] text-gray-500">
+                  {yesOdds ? `${yesOdds}x` : "--"}
+                </span>
+                <span className="px-3 py-1 rounded-full border border-green-300 text-green-700 text-xs font-semibold min-w-[3rem] text-center">
+                  {yesPct !== null ? `${yesPct}%` : "--"}
+                </span>
+              </div>
+            </div>
+            <div className="flex items-center text-xs gap-3">
+              <div className="flex items-center gap-2">
+                <span className="text-gray-800 font-medium">No</span>
+                <span className="h-[2px] w-20 bg-blue-500 rounded-full" />
+              </div>
+              <div className="flex items-center gap-3">
+                <span className="text-[11px] text-gray-500">
+                  {noOdds ? `${noOdds}x` : "--"}
+                </span>
+                <span className="px-3 py-1 rounded-full border border-blue-300 text-blue-700 text-xs font-semibold min-w-[3rem] text-center">
+                  {noPct !== null ? `${noPct}%` : "--"}
+                </span>
               </div>
             </div>
           </div>
-          {featuredHistory.length > 0 && (
-            <div className="mt-4 h-24 w-full">
-              <ResponsiveContainer width="100%" height="100%">
-                <LineChart
-                  data={featuredHistory}
-                  margin={{ top: 4, right: 4, left: -12, bottom: 0 }}
-                >
-                  <XAxis dataKey="timestamp" hide />
-                  <YAxis domain={[0, 1]} hide />
-                  <Tooltip
-                    formatter={(v) =>
-                      typeof v === "number" ? `${Math.round(v * 100)}%` : v
-                    }
-                    contentStyle={
-                      themeResolved === "dark"
-                        ? {
-                            backgroundColor: "#16191e",
-                            border: "1px solid #2a2f38",
-                            borderRadius: "8px",
-                            color: "#f8fafc",
-                          }
-                        : undefined
-                    }
-                  />
-                  <ReferenceLine y={0.2} stroke={chartGridStroke} strokeDasharray="4 4" />
-                  <ReferenceLine y={0.4} stroke={chartGridStroke} strokeDasharray="4 4" />
-                  <ReferenceLine y={0.6} stroke={chartGridStroke} strokeDasharray="4 4" />
-                  <ReferenceLine y={0.8} stroke={chartGridStroke} strokeDasharray="4 4" />
-                  <ReferenceLine y={1} stroke={chartGridStroke} strokeDasharray="4 4" />
-                  <Line
-                    type="monotone"
-                    dataKey="Yes"
-                    stroke={chartLineYes}
-                    strokeWidth={2}
-                    dot={false}
-                    name="Yes"
-                  />
-                  <Line
-                    type="monotone"
-                    dataKey="No"
-                    stroke={chartLineNo}
-                    strokeWidth={2}
-                    dot={false}
-                    name="No"
-                  />
-                </LineChart>
-              </ResponsiveContainer>
-            </div>
-          )}
         </div>
+        {featuredHistory.length > 0 && (
+          <div className="mt-4 h-24 w-full">
+            <ResponsiveContainer width="100%" height="100%">
+              <LineChart
+                data={featuredHistory}
+                margin={{ top: 4, right: 4, left: -12, bottom: 0 }}
+              >
+                <XAxis dataKey="timestamp" hide />
+                <YAxis domain={[0, 1]} hide />
+                <Tooltip
+                  formatter={(v) =>
+                    typeof v === "number" ? `${Math.round(v * 100)}%` : v
+                  }
+                  contentStyle={
+                    themeResolved === "dark"
+                      ? {
+                          backgroundColor: "#16191e",
+                          border: "1px solid #2a2f38",
+                          borderRadius: "8px",
+                          color: "#f8fafc",
+                        }
+                      : undefined
+                  }
+                />
+                <ReferenceLine y={0.2} stroke={chartGridStroke} strokeDasharray="4 4" />
+                <ReferenceLine y={0.4} stroke={chartGridStroke} strokeDasharray="4 4" />
+                <ReferenceLine y={0.6} stroke={chartGridStroke} strokeDasharray="4 4" />
+                <ReferenceLine y={0.8} stroke={chartGridStroke} strokeDasharray="4 4" />
+                <ReferenceLine y={1} stroke={chartGridStroke} strokeDasharray="4 4" />
+                <Line
+                  type="monotone"
+                  dataKey="Yes"
+                  stroke={chartLineYes}
+                  strokeWidth={2}
+                  dot={false}
+                  name="Yes"
+                />
+                <Line
+                  type="monotone"
+                  dataKey="No"
+                  stroke={chartLineNo}
+                  strokeWidth={2}
+                  dot={false}
+                  name="No"
+                />
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
+        )}
       </div>
     </div>
   );
@@ -412,6 +406,9 @@ const NewMarketPanel = () => {
 
 const Homepage = () => {
   const markets = getHomepageMarkets();
+  const featuredMarket =
+    markets.find((m) => m.id === HOMEPAGE_FEATURED_MARKET_ID) ?? markets[0] ?? null;
+  const gridMarkets = markets.filter((m) => m.id !== featuredMarket?.id);
 
   // Single fetch of odds for all markets once on mount (same idea as markets/[id] page).
   const [marketOdds, setMarketOdds] = useState<Record<string, { yes: number; no: number }>>({});
@@ -439,13 +436,24 @@ const Homepage = () => {
       {markets.length > 0 && (
         <div className="mt-2 flex flex-col lg:flex-row gap-6">
           <div className="flex-1 flex flex-col gap-6">
-            {markets.map((m) => (
+            {featuredMarket && (
               <FeaturedMarket
-                key={m.id}
-                market={m}
-                probs={marketOdds[m.id] ?? null}
+                market={featuredMarket}
+                probs={marketOdds[featuredMarket.id] ?? null}
               />
-            ))}
+            )}
+            {gridMarkets.length > 0 && (
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                {gridMarkets.map((m) => (
+                  <FeaturedMarket
+                    key={m.id}
+                    market={m}
+                    probs={marketOdds[m.id] ?? null}
+                    showDescription={false}
+                  />
+                ))}
+              </div>
+            )}
           </div>
           {/* Right column: Trending Evidence + New Market panels */}
           <div className="w-full lg:w-80">

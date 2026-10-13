@@ -254,19 +254,27 @@ export function getContractsForMarket(marketId: string) {
         outcome1PositionId: "19240072908051422858567531872907377759204560755767841038267344394720196826061", // Yes
         outcome2PositionId: "94149467698680814353316726576100038444402729322933448584166012738934466766066", // No
       };
-    case 'cern-black-hole':
-      return {
-        marketContract: citizenMarketContract,
-        conditionalTokensContract: citizenConditionalTokensContract,
-        outcome1PositionId: "113455186744106652314554907177811965385161301057040133519238858076072918462511", // Yes
-        outcome2PositionId: "55969771879171203019419383788318237610651838481807480369492917672885836669646", // No
-      };
     case 'autism':
       return {
         marketContract: vaccinesAutismMarketContract,
         conditionalTokensContract: vaccinesAutismConditionalTokensContract,
         outcome1PositionId: "71226290096252067581285629648336995324141243340652304533540652151956232685208", // Yes
         outcome2PositionId: "113421302367171696969861912860096314580872080487022862883618672561264857104737", // No
+      };
+    case 'glp1-blindness':
+    case 'talarico-flu':
+      return {
+        marketContract: placeholderMarketContract,
+        conditionalTokensContract: placeholderConditionalTokensContract,
+        outcome1PositionId: "0",
+        outcome2PositionId: "0",
+      };
+    case 'epstein-intelligence':
+      return {
+        marketContract: trumpEpsteinMarketContract,
+        conditionalTokensContract: trumpEpsteinConditionalTokensContract,
+        outcome1PositionId: "58569602745504880454893998906792994823592527926438799456077803258100008716603", // Yes
+        outcome2PositionId: "100624693178318964440176592559852297470034930992781199766001809650698447186010", // No
       };
     case 'covid19':
       return {

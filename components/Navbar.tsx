@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import Image from "next/image";
 import { ConnectButton, useActiveAccount, useReadContract } from "thirdweb/react";
 import { client } from "../src/client";
 import { useRouter } from "next/navigation";
@@ -211,10 +212,24 @@ const Navbar = ({ variant = "full" }: NavbarProps) => {
     <nav className="w-full border-b border-border bg-background">
       <div className="max-w-6xl mx-auto w-full flex items-center justify-between px-4 md:px-6 lg:px-8 py-1">
         <div className="ml-0 flex flex-col items-start">
-          <h1 className="text-2xl font-bold text-citizen-ink mt-2">The Citizen</h1>
-          <div className="flex gap-0 md:gap-0 mt-1 -ml-2">
+          <button
+            type="button"
+            onClick={() => router.push("/")}
+            className="mt-2 focus:outline-none"
+            aria-label="The Citizen"
+          >
+            <Image
+              src="/the-citizen-logo.png"
+              alt="The Citizen"
+              width={189}
+              height={50}
+              className="h-8 md:h-10 w-auto"
+              priority
+            />
+          </button>
+          <div className="flex gap-0 md:gap-0 mt-0 -ml-2">
             <button
-              className="py-1 px-1 md:px-2 bg-transparent text-citizen-ink rounded-md text-[8px] md:text-xs font-semibold hover:bg-black/5 dark:hover:bg-white/10 transition border-none shadow-none text-left whitespace-nowrap"
+              className="pt-0 pb-1 px-1 md:px-2 bg-transparent text-citizen-ink rounded-md text-[8px] md:text-xs font-semibold hover:bg-black/5 dark:hover:bg-white/10 transition border-none shadow-none text-left whitespace-nowrap"
               style={{ minWidth: 0 }}
               onClick={() => router.push("/markets")}
               type="button"
@@ -223,7 +238,7 @@ const Navbar = ({ variant = "full" }: NavbarProps) => {
             </button>
 
             <button
-              className="py-1 px-1 md:px-2 bg-transparent text-citizen-ink rounded-md text-[8px] md:text-xs font-semibold hover:bg-black/5 dark:hover:bg-white/10 transition border-none shadow-none text-left whitespace-nowrap"
+              className="pt-0 pb-1 px-1 md:px-2 bg-transparent text-citizen-ink rounded-md text-[8px] md:text-xs font-semibold hover:bg-black/5 dark:hover:bg-white/10 transition border-none shadow-none text-left whitespace-nowrap"
               style={{ minWidth: 0 }}
               onClick={() => router.push("/market-ideas")}
               type="button"
@@ -231,7 +246,7 @@ const Navbar = ({ variant = "full" }: NavbarProps) => {
               New
             </button>
             <button
-              className="py-1 px-1 md:px-2 bg-transparent text-citizen-ink rounded-md text-[8px] md:text-xs font-semibold hover:bg-black/5 dark:hover:bg-white/10 transition border-none shadow-none text-left whitespace-nowrap"
+              className="pt-0 pb-1 px-1 md:px-2 bg-transparent text-citizen-ink rounded-md text-[8px] md:text-xs font-semibold hover:bg-black/5 dark:hover:bg-white/10 transition border-none shadow-none text-left whitespace-nowrap"
               style={{ minWidth: 0 }}
               onClick={() => router.push("/portfolio")}
               type="button"
@@ -239,7 +254,7 @@ const Navbar = ({ variant = "full" }: NavbarProps) => {
               Portfolio
             </button>
             <button
-              className="py-1 px-1 md:px-2 bg-transparent text-citizen-ink rounded-md text-[8px] md:text-xs font-semibold hover:bg-black/5 dark:hover:bg-white/10 transition border-none shadow-none text-left whitespace-nowrap"
+              className="pt-0 pb-1 px-1 md:px-2 bg-transparent text-citizen-ink rounded-md text-[8px] md:text-xs font-semibold hover:bg-black/5 dark:hover:bg-white/10 transition border-none shadow-none text-left whitespace-nowrap"
               style={{ minWidth: 0 }}
               onClick={() => router.push("/deposit")}
               type="button"
@@ -247,7 +262,7 @@ const Navbar = ({ variant = "full" }: NavbarProps) => {
               Deposit
             </button>
             <button
-              className="py-1 px-1 md:px-2 bg-transparent text-citizen-ink rounded-md text-[8px] md:text-xs font-semibold hover:bg-black/5 dark:hover:bg-white/10 transition border-none shadow-none text-left whitespace-nowrap"
+              className="pt-0 pb-1 px-1 md:px-2 bg-transparent text-citizen-ink rounded-md text-[8px] md:text-xs font-semibold hover:bg-black/5 dark:hover:bg-white/10 transition border-none shadow-none text-left whitespace-nowrap"
               style={{ minWidth: 0 }}
               onClick={() => router.push("/docs")}
               type="button"

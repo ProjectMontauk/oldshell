@@ -31,25 +31,49 @@ export const markets: Market[] = [
     rules: "This market will resolve to \"Yes\" if there is clear and convincing evidence that SARS-CoV-2 (COVID-19) entered the human population through a laboratory leak from a research or related facility, rather than purely through natural zoonotic spillover without such involvement. Otherwise, this market will resolve to \"No.\"\n\nPrice oracle. The reference price for this market is the probability estimate for the same \"Yes\" outcome described above, as published by superforecasters from the Good Judgment Project for this market. The oracle rule is fixed: it always tracks those superforecasters' current published estimate for this question.\n\nContinuous updates. Superforecasters from the Good Judgment Project may revise their estimate for this market at any time, as new evidence or analysis warrants. Superforecasters are required to update their forecasts at least once per month; when they update their view, the reference price reflects that latest estimate.\n\nParticipants should treat the oracle as a forward-looking, evidence-weighted probability—not a final legal or journalistic determination."
   },
   {
-    id: 'cern-black-hole',
-    title: "Will CERN Generate a Black Hole?",
-    description: "Will CERN's Large Hadron Collider generate a black hole as a result of its particle collisions?",
-    image: "/Fluoride.png",
-    contractAddress: "0xC845FAdec3f3A1B6c513d0D9928faEa02eBeFcdb",
+    id: 'glp1-blindness',
+    title: "Is GLP-1 use linked to sudden onset blindness?",
+    description: "Is there clear and convincing evidence that GLP-1 receptor agonist use is causally linked to sudden onset blindness?",
+    image: "/RFK.png",
+    contractAddress: "0x4b468b0d30d0ff3fcf70d87ef55efc9568dbecc0",
     outcomes: [
-      "Yes, CERN will generate a black hole",
-      "No, CERN will not generate a black hole"
+      "Yes, GLP-1 use is linked to sudden onset blindness",
+      "No, GLP-1 use is not linked to sudden onset blindness"
     ],
-    rules: "This market will resolve to \"Yes\" if there is clear and convincing evidence that CERN's Large Hadron Collider (LHC) or other CERN accelerator operations have generated a black hole as a direct result of particle collisions at those facilities. Otherwise, this market will resolve to \"No.\" For purposes of this market, \"generate a black hole\" means that a black hole—microscopic or otherwise—was actually produced by CERN accelerator operations, not merely that such production was theoretically possible, publicly feared, or discussed in safety reviews prior to operation.\n\nPrice oracle. The reference price for this market is the probability estimate for the same \"Yes\" outcome described above, as published by superforecasters from the Good Judgment Project for this market. The oracle rule is fixed: it always tracks those superforecasters' current published estimate for this question.\n\nContinuous updates. Superforecasters from the Good Judgment Project may revise their estimate for this market at any time, as new evidence or analysis warrants. Superforecasters are required to update their forecasts at least once per month; when they update their view, the reference price reflects that latest estimate.\n\nParticipants should treat the oracle as a forward-looking, evidence-weighted probability—not a final legal or journalistic determination."
+    rules: "The market will resolve \"Yes\" if the WSJ scientific review board finds clear and convincing evidence that use of GLP-1 receptor agonists is causally linked to sudden onset blindness, after adjusting for reasonable confounders.\n\nOtherwise, the market will resolve \"No.\" This means the WSJ scientific review board did not find clear and convincing evidence supporting such a causal link.\n\nFind out more about the WSJ scientific review board <a href=\"/docs?tab=review-boards\" target=\"_blank\" rel=\"noopener noreferrer\" style=\"color: #2563eb; text-decoration: underline;\">here</a>."
+  },
+  {
+    id: 'talarico-flu',
+    title: "Was James Talarico's two-week campaign absence due to the flu?",
+    description: "Was James Talarico's roughly two-week campaign absence caused by the flu?",
+    image: "/RFK.png",
+    contractAddress: "0x4b468b0d30d0ff3fcf70d87ef55efc9568dbecc0",
+    outcomes: [
+      "Yes, the absence was due to the flu",
+      "No, the absence was not due to the flu"
+    ],
+    rules: "The market will resolve \"Yes\" if the WSJ history review board finds clear and convincing evidence that James Talarico's roughly two-week campaign absence was due to the flu.\n\nOtherwise, the market will resolve \"No.\" This means the WSJ history review board did not find clear and convincing evidence that the flu caused the absence.\n\nFind out more about the WSJ history review board <a href=\"/docs?tab=review-boards\" target=\"_blank\" rel=\"noopener noreferrer\" style=\"color: #2563eb; text-decoration: underline;\">here</a>."
   },
   {
     id: 'autism',
-    title: "Childhood Vaccines Linked to Autism?",
+    title: "Is the childhood vaccine schedule linked to autism?",
     description: "Is there clear and convincing evidence linking the CDC-recommended childhood vaccine schedule to a higher likelihood of developing Autism Spectrum Disorder?",
     image: "/RFK.png",
     contractAddress: "0x80863c2f689b293049564a68e781fd4d4ae01858",
     outcomes: ["Yes, childhood vaccines linked to autism:", "No, childhood vaccines not linked to autism:"],
     rules: "The market will resolve \"Yes\" if the WSJ scientific review board finds that there is a clear and convincing evidence establishing the link between children following the CDC-recommended childhood vaccine schedule and a higher likelihood of developing Autism Spectrum Disorder over their lifetime compared to unvaccinated children.\n\nOtherwise, the market will resolve \"No.\" This means the WSJ scientific review board did not find a clear and convincing evidence supporting the link between childhood vaccines and a higher likelihood of developing Autism Spectrum Disorder.\n\nThis market will close February 20th, 2026 at 11:59 AM EDT and within three days of market close, the review board will resolve the market and author the case summary.\n\nFind out more about the WSJ scientific review board <a href=\"/docs?tab=review-boards\" target=\"_blank\" rel=\"noopener noreferrer\" style=\"color: #2563eb; text-decoration: underline;\">here</a>."
+  },
+  {
+    id: 'epstein-intelligence',
+    title: "Was Jeffrey Epstein an Intelligence Agent?",
+    description: "Was Jeffrey Epstein an agent of, or otherwise acting on behalf of, an intelligence service?",
+    image: "/TrumpEpstein.png",
+    contractAddress: "0xbf7b301d6b0542f2b69da5816eda102bbcc2aaf2",
+    outcomes: [
+      "Yes, Jeffrey Epstein was an intelligence agent",
+      "No, Jeffrey Epstein was not an intelligence agent"
+    ],
+    rules: "The market will resolve \"Yes\" if the WSJ history review board finds clear and convincing evidence that Jeffrey Epstein was an agent of, or otherwise acted on behalf of, an intelligence service.\n\nOtherwise, the market will resolve \"No.\" This means the WSJ history review board did not find clear and convincing evidence supporting that conclusion.\n\nFind out more about the WSJ history review board <a href=\"/docs?tab=review-boards\" target=\"_blank\" rel=\"noopener noreferrer\" style=\"color: #2563eb; text-decoration: underline;\">here</a>."
   },
   {
     id: 'covid19',
@@ -93,21 +117,23 @@ export function getMarketById(id: string): Market | undefined {
   return markets.find(market => market.id === id);
 }
 
-const HOMEPAGE_HIDDEN_MARKET_IDS = new Set([
-  '2020',
-  'jfk',
-  'covid19',
-  'autism',
-  'mrna',
-]);
+export const HOMEPAGE_FEATURED_MARKET_ID = "covid-lab-leak";
+
+const HOMEPAGE_GRID_MARKET_IDS = [
+  "glp1-blindness",
+  "talarico-flu",
+  "autism",
+  "epstein-intelligence",
+] as const;
 
 export function getAllMarkets(): Market[] {
-  // Markets shown in general UI lists (portfolio, etc.) — excludes permanently delisted markets
-  return markets.filter(
-    (market) => market.id !== '2020' && market.id !== 'jfk'
-  );
+  return markets;
 }
 
 export function getHomepageMarkets(): Market[] {
-  return getAllMarkets().filter((market) => !HOMEPAGE_HIDDEN_MARKET_IDS.has(market.id));
+  const featured = getMarketById(HOMEPAGE_FEATURED_MARKET_ID);
+  const grid = HOMEPAGE_GRID_MARKET_IDS.map((id) => getMarketById(id)).filter(
+    (market): market is Market => market !== undefined
+  );
+  return featured ? [featured, ...grid] : grid;
 } 
