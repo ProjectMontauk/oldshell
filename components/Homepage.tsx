@@ -84,6 +84,9 @@ const FeaturedMarket = ({
   const noPct = no > 0 ? Math.round(no * 100) : null;
   const yesOdds = yes > 0 ? (1 / yes).toFixed(2) : null;
   const noOdds = no > 0 ? (1 / no).toFixed(2) : null;
+  const barMaxPx = 80;
+  const yesBarWidth = yes > 0 ? Math.max(yes * barMaxPx, 2) : 0;
+  const noBarWidth = no > 0 ? Math.max(no * barMaxPx, 2) : 0;
 
   return (
     <div
@@ -97,7 +100,11 @@ const FeaturedMarket = ({
     >
       <div className="flex flex-col justify-between h-full">
         <div>
-          <h2 className="text-lg md:text-xl font-bold text-gray-900 mb-2">
+          <h2
+            className={`${
+              showDescription ? "text-lg md:text-xl" : "text-sm md:text-base"
+            } font-bold text-gray-900 mb-2`}
+          >
             {market.title}
           </h2>
           {showDescription && (
@@ -105,12 +112,15 @@ const FeaturedMarket = ({
               {market.description}
             </p>
           )}
-          {/* Yes / No rows: fixed gap from bars to odds (match market card spacing) */}
+          {/* Yes / No rows: bar width scales with probability */}
           <div className="mt-3 space-y-2">
             <div className="flex items-center text-xs gap-3">
-              <div className="flex items-center gap-2">
-                <span className="text-gray-800 font-medium">Yes</span>
-                <span className="h-[2px] w-20 bg-green-400 rounded-full" />
+              <div className="flex items-center gap-2 min-w-[7.5rem]">
+                <span className="text-gray-800 font-medium w-7 shrink-0">Yes</span>
+                <span
+                  className="h-[2px] bg-green-400 rounded-full"
+                  style={{ width: `${yesBarWidth}px` }}
+                />
               </div>
               <div className="flex items-center gap-3">
                 <span className="text-[11px] text-gray-500">
@@ -122,9 +132,12 @@ const FeaturedMarket = ({
               </div>
             </div>
             <div className="flex items-center text-xs gap-3">
-              <div className="flex items-center gap-2">
-                <span className="text-gray-800 font-medium">No</span>
-                <span className="h-[2px] w-20 bg-blue-500 rounded-full" />
+              <div className="flex items-center gap-2 min-w-[7.5rem]">
+                <span className="text-gray-800 font-medium w-7 shrink-0">No</span>
+                <span
+                  className="h-[2px] bg-blue-500 rounded-full"
+                  style={{ width: `${noBarWidth}px` }}
+                />
               </div>
               <div className="flex items-center gap-3">
                 <span className="text-[11px] text-gray-500">
